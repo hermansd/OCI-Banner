@@ -307,7 +307,7 @@ variables:
     required: true 
 
   vcn_cidrs:
-    type: oci:network:vcn:id
+    type: oci:core:vcn:id
     dependsOn:
       compartmentId: ${net_compartment_ocid}
 #    items:
