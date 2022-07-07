@@ -47,13 +47,6 @@ variables:
     description: "The region for resources deployment."
     required: true
 
-  compartment_ocid:
-    type: oci:identity:compartment:id
-    title: "Existing enclosing compartment"
-    description: "The enclosing compartment where Landing Zone compartments will be created. If not provided and \"Use enclosing compartment?\" is checked, an enclosing compartment is created under the root compartment."
-    required: true 
-
-
   vcn_compartment_ocid:
     type: oci:identity:compartment:id
     title: "Existing enclosing compartment"
