@@ -12,10 +12,10 @@ variableGroups:
     variables:
       - "region"
       - "service_label"
+      - "compartment_ocid"
       - "env_advanced_options"
       - "extend_landing_zone_to_new_region"
       - "use_enclosing_compartment"
-      - "existing_enclosing_compartment_ocid"
       - "policies_in_root_compartment"
       - "existing_iam_admin_group_name"
       - "existing_cred_admin_group_name"
@@ -165,7 +165,7 @@ variables:
     default: false
     visible: env_advanced_options
   
-  existing_enclosing_compartment_ocid:
+  compartment_ocid:
     type: oci:identity:compartment:id
     title: "Existing enclosing compartment"
     description: "The enclosing compartment where Landing Zone compartments will be created. If not provided and \"Use enclosing compartment?\" is checked, an enclosing compartment is created under the root compartment."
@@ -468,16 +468,16 @@ variables:
        - hub_spoke_architecture
 
   exacs_vcn_cidrs:
-    type: array
-    items:
-      type: string
-    uniqueItems: true
-    required: false
-    maxItems: 9
-    minItems: 1
-    title: "Exadata VCNs CIDR Blocks (Must not overlap with 192.168.128.0/20)"
-    description: "CIDR blocks for the Exadata VCNs in CIDR notation. Be mindful about Exadata \"Requirements for IP Address Space\" in <a href=\"https://docs.oracle.com/en-us/iaas/Content/Database/Tasks/exanetwork.htm\">OCI documentation</a>. (Type the name and hit enter to enter multiple values, up to a maximum of 9)"
-    default: []
+    type: type: oci:identity:groups:id
+#    items:
+#      type: string
+#    uniqueItems: true
+    required: true
+#    maxItems: 9
+#    minItems: 1
+    title: "Select VCN For deployment"
+#    description: "CIDR blocks for the Exadata VCNs in CIDR notation. Be mindful about Exadata \"Requirements for IP Address Space\" in <a href=\"https://docs.oracle.com/en-us/iaas/Content/Database/Tasks/exanetwork.htm\">OCI documentation</a>. (Type the name and hit enter to enter multiple values, up to a maximum of 9)"
+    default: false
 
   exa_advanced_options:
     type: boolean
