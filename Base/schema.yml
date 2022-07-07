@@ -12,8 +12,6 @@ variableGroups:
     variables:
       - "region"
       - "service_label"
-      - "compartment_ocid"
-      - "env_advanced_options"
  
   - title: "ESM Host"
     variables:
