@@ -169,11 +169,8 @@ variables:
     type: oci:identity:compartment:id
     title: "Existing enclosing compartment"
     description: "The enclosing compartment where Landing Zone compartments will be created. If not provided and \"Use enclosing compartment?\" is checked, an enclosing compartment is created under the root compartment."
-    required: false 
-    visible:  
-      and:
-        - env_advanced_options
-        - use_enclosing_compartment
+    required: true 
+
 
   policies_in_root_compartment:
     type: enum
