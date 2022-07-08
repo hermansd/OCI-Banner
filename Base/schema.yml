@@ -42,7 +42,7 @@ variables:
     required: true
 
   region:
-    type: oci:identity:region:name
+    type: oci:identity:region_subscriptions:name
     title: "Region"
     description: "The region for resources deployment."
     required: true
