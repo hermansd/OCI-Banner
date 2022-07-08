@@ -49,7 +49,7 @@ variables:
     required: true
 
   os_image_ocid:
-    type: oci:core:images:id
+    type: oci:core:drgs:id
     title: "Choose and OS Image"
     description: "the OS that will be installed in the host"
     required: true 
