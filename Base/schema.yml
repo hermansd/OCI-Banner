@@ -64,6 +64,8 @@ variables:
     type: oci:identity:availabilitydomain:name
     title: "Deplomant Avalaibity Domain"
     description: "What Avalibity Domain to deploy hosts in"
+    dependsOn:
+      compartmentId: ${target_compartment_ocid}
     required: true 
 
   shape_name:
