@@ -7,7 +7,7 @@ resource "oci_core_instance" "instance" {
   availability_domain = var.avalability_domain
   fault_domain        = var.fault_domain
   compartment_id      = var.compartment_ocid
-  display_name        = "${var.display_name}${count.index}"
+  display_name        = "letmework"
   shape               = var.shape
 
   shape_config {
