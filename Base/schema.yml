@@ -80,11 +80,11 @@ variables:
         - eq:
           - ${shape_name}
           - "VM.Standard.E3.Flex"
-          
+
   host_memmory:
     type: number
-    title: "Number of Cores"
-    default: 1
+    title: "Amount of Memmory for Host"
+    default: 16
     visible: 
       eq:
         - ${shape_name}
