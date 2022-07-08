@@ -15,6 +15,7 @@ variableGroups:
  
   - title: "ESM Host"
     variables:
+      - "shape_ocid"    
       - "os_image_ocid"
       - "vcn_compartment_ocid"
       - "vcn_ocid"
@@ -48,10 +49,18 @@ variables:
     description: "The region for resources deployment."
     required: true
 
-  os_image_ocid:
-    type: oci:core:image:id
+  shape_ocid:
+    type: oci:core:instanceshape:name
 #    dependsOn:
 #      compartmentId: ${tenancy_ocid}
+    title: "Choose and OS Image"
+    description: "the OS that will be installed in the host"
+    required: true 
+
+  os_image_ocid:
+    type: oci:core:image:id
+    dependsOn:
+      compartmentId: ${shape_ocid}
     title: "Choose and OS Image"
     description: "the OS that will be installed in the host"
     required: true 
