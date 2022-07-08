@@ -17,6 +17,7 @@ variableGroups:
   - title: "ESM Host"
     variables:
       - "shape_name"    
+      - ${ocpu_count}
       - "os_image_ocid"
       - "vcn_compartment_ocid"
       - "vcn_ocid"
@@ -65,6 +66,15 @@ variables:
     description: "the OS that will be installed in the host"
     default: "VM.Standard.E4.Flex"
     required: true 
+
+  ocpu_count:
+    type: number
+    title: "Number of Cores"
+    default: 1
+    visible: 
+      eq:
+        - ${shape_name}
+        - "VM.Standard.E4.Flex"
 
   os_image_ocid:
     type: oci:core:image:id
