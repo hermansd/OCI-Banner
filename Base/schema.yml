@@ -49,7 +49,7 @@ variables:
     required: true
 
   os_image_ocid:
-    type: oci:core:drgs:id
+    type: oci:core:vcn:id
     dependsOn:
       compartmentId: ${vcn_compartment_ocid}
     title: "Choose and OS Image"
