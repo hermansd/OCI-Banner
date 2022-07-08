@@ -50,6 +50,8 @@ variables:
 
   os_image_ocid:
     type: oci:core:drgs:id
+    dependsOn:
+      compartmentId: ${vcn_compartment_ocid}
     title: "Choose and OS Image"
     description: "the OS that will be installed in the host"
     required: true 
