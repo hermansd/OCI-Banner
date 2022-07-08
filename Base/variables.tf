@@ -6,8 +6,12 @@ variable "service_label" {}
 
 variable "target_compartment_ocid" {}
 variable "shape_name" {}
-variable "host_ocpus" {}
-variable "host_memmory" {}
+variable "host_ocpus" {
+  default = 1
+}
+variable "host_memmory" {
+  default = 16
+}
 variable "os_image_ocid" {}
 variable "vcn_compartment_ocid" {}
 variable "vcn_ocid" {}
