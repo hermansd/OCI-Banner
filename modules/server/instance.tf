@@ -43,7 +43,7 @@ resource "oci_core_instance" "instance" {
 }
 
 resource "oci_core_volume" "block_volume_paravirtualized" {
-  count               = var.num_instances * var.num_volumes
+  #count               = var.num_instances * var.num_volumes
   availability_domain = var.avalability_domain
   compartment_id      = var.compartment_ocid
   display_name        = "BlockParavirtualized${count.index}"
