@@ -36,10 +36,10 @@ resource "oci_core_instance" "instance" {
     ssh_authorized_keys = var.ssh_public_key
   }
 
-  defined_tags = var.defined_tags
-  timeouts {
-    create = "60m"
-  }
+  #defined_tags = var.defined_tags
+  #timeouts {
+  #  create = "60m"
+  #}
 }
 
 resource "oci_core_volume" "block_volume_paravirtualized" {
@@ -48,7 +48,7 @@ resource "oci_core_volume" "block_volume_paravirtualized" {
   compartment_id      = var.compartment_ocid
   display_name        = "BlockParavirtualized${count.index}"
   size_in_gbs         = var.attached_volume_size
-  defined_tags        = {"Automation.CtreatedBy":"Terraform"}
+  #defined_tags        = {"Automation.CtreatedBy":"Terraform"}
 }
 
 resource "oci_core_volume_attachment" "block_volume_attach_paravirtualized" {

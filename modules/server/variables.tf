@@ -58,9 +58,9 @@ variable "ssh_public_key" {
   description = "(Required) SSH Public key to assign to OPC users"
 }
 
-variable "defined_tags" {
-  description = "defined tags to add to instance"
-}
+#variable "defined_tags" {
+#  description = "defined tags to add to instance"
+#}
 
 variable "tenancy_ocid" {
   description = "OCID of teh tenancy to create instance in."
