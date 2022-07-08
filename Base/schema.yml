@@ -17,7 +17,8 @@ variableGroups:
   - title: "ESM Host"
     variables:
       - "shape_name"    
-      - ${ocpu_count}
+      - "host_count"
+      - "host_memmory"
       - "os_image_ocid"
       - "vcn_compartment_ocid"
       - "vcn_ocid"
@@ -67,7 +68,20 @@ variables:
     default: "VM.Standard.E4.Flex"
     required: true 
 
-  ocpu_count:
+  host_ocpus:
+    type: number
+    title: "Number of Cores"
+    default: 1
+    visible: 
+      or:
+        - eq:
+          - ${shape_name}
+          - "VM.Standard.E4.Flex"
+        - eq:
+          - ${shape_name}
+          - "VM.Standard.E3.Flex"
+          
+  host_memmory:
     type: number
     title: "Number of Cores"
     default: 1
