@@ -73,7 +73,7 @@ variables:
       operatingSystem: "Oracle Linux"
     title: "Choose and OS Image"
     description: "the OS that will be installed in the host"
-    default: "Oracle-Linux-8.6"
+    default: "Oracle-Linux-8.6*"
     required: true 
 
 
