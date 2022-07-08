@@ -11,11 +11,12 @@ variableGroups:
   - title: "Environment"
     variables:
       - "region"
+      - "target_compartment_ocid"
       - "service_label"
  
   - title: "ESM Host"
     variables:
-      - "shape_ocid"    
+      - "shape_name"    
       - "os_image_ocid"
       - "vcn_compartment_ocid"
       - "vcn_ocid"
@@ -49,10 +50,16 @@ variables:
     description: "The region for resources deployment."
     required: true
 
+  target_compartment_ocid:
+    type: oci:identity:compartment:id
+    title: "Existing enclosing compartment"
+    description: "The enclosing compartment where Landing Zone compartments will be created. If not provided and \"Use enclosing compartment?\" is checked, an enclosing compartment is created under the root compartment."
+    required: true 
+
   shape_ocid:
     type: oci:core:instanceshape:name
-#    dependsOn:
-#      compartmentId: ${tenancy_ocid}
+    dependsOn:
+      compartmentId: ${target_compartment_ocid}
     title: "Choose and OS Image"
     description: "the OS that will be installed in the host"
     required: true 
@@ -60,7 +67,7 @@ variables:
   os_image_ocid:
     type: oci:core:image:id
     dependsOn:
-      compartmentId: ${shape_ocid}
+      compartmentId: ${target_compartment_ocid}
     title: "Choose and OS Image"
     description: "the OS that will be installed in the host"
     required: true 
