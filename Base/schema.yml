@@ -66,6 +66,7 @@ variables:
     description: "What Avalibity Domain to deploy hosts in"
     dependsOn:
       compartmentId: ${target_compartment_ocid}
+    default: "US-ASHBURN-AD-1"
     required: true 
 
   shape_name:
