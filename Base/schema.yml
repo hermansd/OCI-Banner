@@ -63,6 +63,7 @@ variables:
       compartmentId: ${target_compartment_ocid}
     title: "Choose Shape of Host"
     description: "the OS that will be installed in the host"
+    default: "VM.Standard.E4.Flex"
     required: true 
 
   os_image_ocid:
