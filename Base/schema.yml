@@ -12,6 +12,7 @@ variableGroups:
     variables:
       - "region"
       - "target_compartment_ocid"
+      - "target_ad"
       - "service_label"
  
   - title: "ESM Host"
@@ -57,6 +58,12 @@ variables:
     type: oci:identity:compartment:id
     title: "Deplomant Campartment"
     description: "The enclosing compartment where Landing Zone compartments will be created. If not provided and \"Use enclosing compartment?\" is checked, an enclosing compartment is created under the root compartment."
+    required: true 
+
+  target_ad:
+    type: oci:identity:availabilitydomain:name
+    title: "Deplomant Avalaibity Domain"
+    description: "What Avalibity Domain to deploy hosts in"
     required: true 
 
   shape_name:

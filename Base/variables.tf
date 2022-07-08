@@ -5,6 +5,7 @@
 variable "service_label" {}
 
 variable "target_compartment_ocid" {}
+variable "target_ad" {}
 variable "shape_name" {}
 variable "host_ocpus" {
   default = 1

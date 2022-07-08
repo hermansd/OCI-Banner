@@ -6,7 +6,7 @@ module "esm_server" {
   shape               = var.shape_name
   ocpus               = 1
   image_ocid          = var.os_image_ocid
-  avalability_domain  = data.oci_identity_availability_domains.ad[2].name
+  avalability_domain  = var.target_ad
   compartment_ocid    = var.target_compartment_ocid
   display_name        = "DNS2"
   subnet_ocid         = var.subnet_ocid
