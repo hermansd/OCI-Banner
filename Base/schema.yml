@@ -15,6 +15,7 @@ variableGroups:
  
   - title: "ESM Host"
     variables:
+      - "os_image_ocid"
       - "vcn_compartment_ocid"
       - "vcn_ocid"
       - "subnet_compartment_ocid"
@@ -46,6 +47,13 @@ variables:
     title: "Region"
     description: "The region for resources deployment."
     required: true
+
+  os_image_ocid:
+    type: oci_core_images
+    title: "Choose and OS Image"
+    description: "the OS that will be installed in the host"
+    required: true 
+
 
   vcn_compartment_ocid:
     type: oci:identity:compartment:id
