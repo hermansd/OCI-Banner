@@ -17,7 +17,7 @@ variableGroups:
   - title: "ESM Host"
     variables:
       - "shape_name"    
-      - "host_count"
+      - "host_ocpus"
       - "host_memmory"
       - "os_image_ocid"
       - "vcn_compartment_ocid"
@@ -86,9 +86,13 @@ variables:
     title: "Amount of Memmory for Host"
     default: 16
     visible: 
-      eq:
-        - ${shape_name}
-        - "VM.Standard.E4.Flex"
+      or:
+        - eq:
+          - ${shape_name}
+          - "VM.Standard.E4.Flex"
+        - eq:
+          - ${shape_name}
+          - "VM.Standard.E3.Flex"
 
   os_image_ocid:
     type: oci:core:image:id
