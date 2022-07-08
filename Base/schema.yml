@@ -52,15 +52,15 @@ variables:
 
   target_compartment_ocid:
     type: oci:identity:compartment:id
-    title: "Existing enclosing compartment"
+    title: "Deplomant Campartment"
     description: "The enclosing compartment where Landing Zone compartments will be created. If not provided and \"Use enclosing compartment?\" is checked, an enclosing compartment is created under the root compartment."
     required: true 
 
-  shape_ocid:
+  shape_name:
     type: oci:core:instanceshape:name
     dependsOn:
       compartmentId: ${target_compartment_ocid}
-    title: "Choose and OS Image"
+    title: "Choose Shape of Host"
     description: "the OS that will be installed in the host"
     required: true 
 
@@ -68,6 +68,7 @@ variables:
     type: oci:core:image:id
     dependsOn:
       compartmentId: ${target_compartment_ocid}
+      operating_system: "Oracle Linux"
     title: "Choose and OS Image"
     description: "the OS that will be installed in the host"
     required: true 
