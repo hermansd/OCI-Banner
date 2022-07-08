@@ -1,7 +1,7 @@
 # Copyright (c) 2021 Oracle and/or its affiliates.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
-title: "OCI Qucik Base Banner Deployment"
+title: "OCI Quick Base Banner Deployment"
 stackDescription: "A stack to deploy a set of Basde OCI servcies for getting started with standing up a Banner Environment"
 schemaVersion: 1.1.0
 version: "0.0.1"
@@ -49,7 +49,7 @@ variables:
     required: true
 
   os_image_ocid:
-    type: oci_core_images
+    type: data.oci_core_images
     title: "Choose and OS Image"
     description: "the OS that will be installed in the host"
     required: true 
