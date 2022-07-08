@@ -1,5 +1,5 @@
-module "dns_server2" {
- // count               = 2
+module "esm_server" {
+  count               = 1
   source              = "../modules/server"
   tenancy_ocid        = var.tenancy_ocid
   num_instances       = 1

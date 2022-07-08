@@ -9,6 +9,18 @@ variable "service_label" {
   }
 }
 
+variable "target_compartment_ocid" {}
+variable "shape_name" {}
+variable "host_ocpus" {}
+variable "host_memmory" {}
+variable "os_image_ocid" {}
+variable "vcn_compartment_ocid" {}
+variable "vcn_ocid" {}
+variable "subnet_compartment_ocid" {}
+variable "subnet_ocid" {}
+variable "sshkey" {}
+
+
 variable "tenancy_ocid" {}
 variable "user_ocid" {
   default = ""
