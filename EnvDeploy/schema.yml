@@ -17,6 +17,7 @@ variableGroups:
  
   - title: "Applicaiton Servers"
     variables:
+      - "number_hosts"
       - "shape_name"    
       - "host_ocpus"
       - "host_memmory"
@@ -95,6 +96,11 @@ variables:
     default: "US-ASHBURN-AD-1"
     required: true 
 
+  number_hosts:
+    type: number
+    title: "Number of Applicaiton Servers to create"
+    default: 1
+    
   shape_name:
     type: oci:core:instanceshape:name
     dependsOn:
@@ -251,7 +257,7 @@ variables:
     title: Database Hostname Prefix*
     description: The database hostname prefix must start with letter, should be between 1 and 30 characters in length and contain only letters, numbers and hyphen (-) characters.
     type: string
-    default: "emdbhost"
+    default: "bandbp"
     required: true
     pattern: "^[a-zA-Z][a-zA-Z0-9-]{1,29}$"
 
@@ -265,7 +271,7 @@ variables:
        - is_advanced_installation
     title: "Database Name"
     type: string
-    default: "emrep"
+    default: "BannerProd"
     required: true
     pattern: "^[a-zA-Z][a-zA-Z0-9]{1,7}$"
     description: "Name of the Database. Must start with letter, can have a maximum of 8 characters and only alphanumeric characters"
@@ -427,7 +433,7 @@ variables:
         - eq:
           - em_instance_size
           - "Simple"
-    title: "Enable Data Guard for management repository*"
+    title: "Enable Data Guard for Banner Database"
     type: boolean
     default: false
     required: true
