@@ -1,0 +1,177 @@
+# Copyright (c) 2021 Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
+title: "OCI Quick Base Banner Deployment"
+stackDescription: "A stack to deploy a set of Basde OCI servcies for getting started with standing up a Banner Environment"
+schemaVersion: 1.1.0
+version: "0.0.1"
+locale: "en"
+
+variableGroups:
+  - title: "Environment"
+    variables:
+      - "region"
+      - "target_compartment_ocid"
+      - "target_ad"
+      - "service_label"
+ 
+  - title: "Applicaiton Servers"
+    variables:
+      - "shape_name"    
+      - "host_ocpus"
+      - "host_memmory"
+      - "os_image_ocid"
+      - "vcn_compartment_ocid"
+      - "vcn_ocid"
+      - "subnet_compartment_ocid"
+      - "subnet_ocid"
+      - ${sshkey}
+
+  - title: "Database Server(s)"
+    variables:
+      - "shape_name"    
+      - "host_ocpus"
+      - "host_memmory"
+      - "os_image_ocid"
+      - "vcn_compartment_ocid"
+      - "vcn_ocid"
+      - "subnet_compartment_ocid"
+      - "subnet_ocid"
+      - ${sshkey}
+
+  - title: "Hidden Variables"
+    visible: false
+    variables:
+      - "tenancy_ocid"
+      - "user_ocid"
+      - "fingerprint"
+      - "private_key_path"
+      - "private_key_password"
+  
+variables:
+  
+  service_label:
+    type: string
+    title: "Service Label"
+    minLength: 1
+    maxLength: 8
+    pattern: "^[A-Za-z][A-Za-z0-9]{1,7}$"
+    description: "A unique label that gets prepended to all resources created by the Landing Zone."
+    required: true
+
+  region:
+    type: oci:identity:region_subscriptions:name
+    title: "Region"
+    description: "The region for resources deployment."
+    required: true
+
+  target_compartment_ocid:
+    type: oci:identity:compartment:id
+    title: "Deplomant Campartment"
+    description: "The enclosing compartment where Landing Zone compartments will be created. If not provided and \"Use enclosing compartment?\" is checked, an enclosing compartment is created under the root compartment."
+    required: true 
+
+  target_ad:
+    type: oci:identity:availabilitydomain:name
+    title: "Deplomant Avalaibity Domain"
+    description: "What Avalibity Domain to deploy hosts in"
+    dependsOn:
+      compartmentId: ${target_compartment_ocid}
+    default: "US-ASHBURN-AD-1"
+    required: true 
+
+  shape_name:
+    type: oci:core:instanceshape:name
+    dependsOn:
+      compartmentId: ${target_compartment_ocid}
+    title: "Choose Shape of Host"
+    description: "the OS that will be installed in the host"
+    default: "VM.Standard.E4.Flex"
+    required: true 
+
+  host_ocpus:
+    type: number
+    title: "Number of Cores"
+    default: 1
+    visible: 
+      or:
+        - eq:
+          - ${shape_name}
+          - "VM.Standard.E4.Flex"
+        - eq:
+          - ${shape_name}
+          - "VM.Standard.E3.Flex"
+
+  host_memmory:
+    type: number
+    title: "Amount of Memmory for Host"
+    default: 16
+    visible: 
+      or:
+        - eq:
+          - ${shape_name}
+          - "VM.Standard.E4.Flex"
+        - eq:
+          - ${shape_name}
+          - "VM.Standard.E3.Flex"
+
+  os_image_ocid:
+    type: oci:core:image:id
+    dependsOn:
+      compartmentId: ${target_compartment_ocid}
+      operatingSystem: "Oracle Linux"
+    title: "Choose and OS Image"
+    description: "the OS that will be installed in the host"
+    default: "Oracle-Linux-8.6*"
+    required: true 
+
+
+  vcn_compartment_ocid:
+    type: oci:identity:compartment:id
+    title: "Existing enclosing compartment"
+    description: "The enclosing compartment where Landing Zone compartments will be created. If not provided and \"Use enclosing compartment?\" is checked, an enclosing compartment is created under the root compartment."
+    required: true 
+
+  vcn_ocid:
+    type: oci:core:vcn:id
+    dependsOn:
+      compartmentId: ${vcn_compartment_ocid}
+    required: true
+    title: "Select VCN For deployment"
+#    description: "CIDR blocks for the Exadata VCNs in CIDR notation. Be mindful about Exadata \"Requirements for IP Address Space\" in <a href=\"https://docs.oracle.com/en-us/iaas/Content/Database/Tasks/exanetwork.htm\">OCI documentation</a>. (Type the name and hit enter to enter multiple values, up to a maximum of 9)"
+    default: false
+
+  subnet_compartment_ocid:
+    type: oci:identity:compartment:id
+    title: "Existing enclosing compartment"
+    description: "The enclosing compartment where Landing Zone compartments will be created. If not provided and \"Use enclosing compartment?\" is checked, an enclosing compartment is created under the root compartment."
+    required: true 
+
+  subnet_ocid:
+    type: oci:core:subnet:id
+    dependsOn:
+      compartmentId: ${subnet_compartment_ocid}
+      vcnId: ${vcn_ocid}
+    required: true
+    title: "Select Subnet For deployment"
+#    description: "CIDR blocks for the Exadata VCNs in CIDR notation. Be mindful about Exadata \"Requirements for IP Address Space\" in <a href=\"https://docs.oracle.com/en-us/iaas/Content/Database/Tasks/exanetwork.htm\">OCI documentation</a>. (Type the name and hit enter to enter multiple values, up to a maximum of 9)"
+    default: ${vcn_compartment_ocid}
+
+  sshkey:
+    type: oci:core:ssh:publickey
+    title: "SSH Key for Hosts"
+    required: true 
+
+  
+# Variables not required to display to user
+  user_ocid:
+    type: string
+
+  fingerprint:
+    type: string
+
+  private_key_path:
+    type: string
+
+  private_key_password:
+    type: password
