@@ -100,7 +100,7 @@ variables:
     type: number
     title: "Number of Applicaiton Servers to create"
     default: 1
-    
+
   shape_name:
     type: oci:core:instanceshape:name
     dependsOn:
@@ -223,7 +223,7 @@ variables:
         - is_advanced_installation
     title: DB System Name*
     description: Name of the database system.
-    default: EM-OMR
+    default: BannerProd
     type: string
     required: true
 
