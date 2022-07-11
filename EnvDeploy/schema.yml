@@ -29,15 +29,30 @@ variableGroups:
 
   - title: "Database Server(s)"
     variables:
-      - "shape_name"    
-      - "host_ocpus"
-      - "host_memmory"
-      - "os_image_ocid"
-      - "vcn_compartment_ocid"
-      - "vcn_ocid"
-      - "subnet_compartment_ocid"
-      - "subnet_ocid"
-      - ${sshkey}
+      #- db_create_dataguard  (support in later release)
+      - db_compartment_ocid
+      - db_system_name
+      - db_sys_password
+      - dbsnmp_password
+      - db_hostname_prefix
+      - db_system_db_name
+      - db_system_license
+      - db_system_small_instance_shape
+      - db_system_medium_instance_shape
+      - db_system_large_instance_shape
+      #- db_system_2node_edition
+      - db_system_availability_domain
+      - db_system_2node_cluster_name
+      - db_system_storage_size
+      - db_system_ssh_public_key
+      #dataguard related parameters
+      - is_db_system_dataguard_enabled
+      - db_system_dg_name
+      - db_system_dg_availability_domain
+      - db_system_dg_small_instance_shape
+      - db_system_dg_medium_instance_shape
+      - db_system_dg_large_instance_shape
+      - db_system_dg_hostname_prefix
 
   - title: "Hidden Variables"
     visible: false
@@ -175,3 +190,338 @@ variables:
 
   private_key_password:
     type: password
+
+
+#
+  # "Oracle Database System Details"
+  #
+  db_compartment_ocid:
+    visible:
+      not:
+        - eq:
+          - em_instance_size
+          - "Simple"
+    type: oci:identity:compartment:id
+    title: Database Compartment
+    description: The compartment in which to create Oracle Database resources.
+    default: compartment_ocid
+    required: true
+
+  db_system_name:
+    visible:
+      and:
+        - not:
+          - eq:
+            - em_instance_size
+            - "Simple"
+        - is_advanced_installation
+    title: DB System Name*
+    description: Name of the database system.
+    default: EM-OMR
+    type: string
+    required: true
+
+  db_sys_password:
+    type: password
+    required: true
+    title: Database Administrator's Password
+    pattern: "^(?=(.*?[A-Z]){2})(?=(.*?[a-z]){2})(?=(.*?[0-9]){2})(?=(.*?[_#-]){2})[A-Za-z0-9_#-]{9,30}$"
+    description: "The password will be used for the SYS, SYSTEM, and PDB admin accounts and for the TDE wallet. It must be 9 to 30 characters and contain at least 2 uppercase, 2 lowercase, 2 special, and 2 numeric characters.The special characters must be _ , # or -"
+    default: ""
+    confirmation: true
+
+  dbsnmp_password:
+    visible: is_advanced_installation
+    type: password
+    required: true
+    title: DBSNMP User Database Password
+    pattern: "^(?=(.*?[A-Z]){2})(?=(.*?[a-z]){2})(?=(.*?[0-9]){2})(?=(.*?[_#-]){2})[A-Za-z0-9_#-]{9,30}$"
+    description: "The password will be used for the DBSNMP user required for DB discovery. It must be 9 to 30 characters and contain at least 2 uppercase, 2 lowercase, 2 special, and 2 numeric characters.The special characters must be _ , # or -"
+    default: ""
+    confirmation: true
+
+  db_hostname_prefix:
+    visible:
+      and:
+        - not:
+          - eq:
+            - em_instance_size
+            - "Simple"
+        - is_advanced_installation
+    title: Database Hostname Prefix*
+    description: The database hostname prefix must start with letter, should be between 1 and 30 characters in length and contain only letters, numbers and hyphen (-) characters.
+    type: string
+    default: "emdbhost"
+    required: true
+    pattern: "^[a-zA-Z][a-zA-Z0-9-]{1,29}$"
+
+  db_system_db_name:
+    visible:
+     and:
+       - not:
+         - eq:
+           - em_instance_size
+           - "Simple"
+       - is_advanced_installation
+    title: "Database Name"
+    type: string
+    default: "emrep"
+    required: true
+    pattern: "^[a-zA-Z][a-zA-Z0-9]{1,7}$"
+    description: "Name of the Database. Must start with letter, can have a maximum of 8 characters and only alphanumeric characters"
+
+  # TODO: Must exclude 2.1 shape - unsupported for 2-node RAC
+  db_system_license:
+    visible:
+      not:
+        - eq:
+          - em_instance_size
+          - "Simple"
+    type: enum
+    title: "Type of license for DB System"
+    enum:
+    - "LICENSE_INCLUDED"
+    - "BRING_YOUR_OWN_LICENSE"
+    required: true
+    default: "LICENSE_INCLUDED"
+
+  db_system_small_instance_shape:
+    visible:
+      eq:
+        - em_instance_size
+        - "Small"
+    type: oci:core:instanceshape:name
+    title: DB System Instance Shape
+    description: The shape for the two DB System instances. Supported VM shapes for "Small" size are VM.Standard2.2, VM.Standard2.4, VM.Standard2.8, VM.Standard2.16, VM.Standard2.24
+    required: true
+    default: "VM.Standard2.4"
+    dependsOn:
+      compartmentId: ${db_compartment_ocid}
+
+  db_system_medium_instance_shape:
+    visible:
+      eq:
+        - em_instance_size
+        - "Medium"
+    type: oci:core:instanceshape:name
+    title: DB System Instance Shape
+    description: The shape for the two DB System instances. Supported VM shapes for "Medium" size are VM.Standard2.4, VM.Standard2.8, VM.Standard2.16, VM.Standard2.24
+    required: true
+    default: "VM.Standard2.8"
+    dependsOn:
+      compartmentId: ${db_compartment_ocid}
+
+
+  db_system_large_instance_shape:
+    visible:
+      eq:
+        - em_instance_size
+        - "Large"
+    type: oci:core:instanceshape:name
+    title: DB System Instance Shape
+    description: The shape for the two DB System instances. Supported VM shapes for "Large" size are VM.Standard2.8, VM.Standard2.16, VM.Standard2.24
+    required: true
+    default: "VM.Standard2.16"
+    dependsOn:
+      compartmentId: ${db_compartment_ocid}
+
+
+  # db_system_2node_edition:
+  #   visible:
+  #     eq:
+  #     - em_instance_size
+  #     - "Multiple Nodes"
+  #   type: enum
+  #   enum:
+  #   - "Enterprise Edition Extreme Performance"
+  #   title: "DB System Edition"
+  #   required: true
+  #   default: "Enterprise Edition Extreme Performance"
+
+  db_system_availability_domain:
+    visible:
+      not:
+        - eq:
+          - em_instance_size
+          - "Simple"
+    type: oci:identity:availabilitydomain:name
+    title: "Select an availability domain"
+    dependsOn:
+      compartmentId: ${db_compartment_ocid}
+    required: true
+    description: "The availability domain for the database nodes. It is recommended to choose the same availability domain as the primary OMS node"
+
+
+  db_system_2node_cluster_name:
+    visible:
+      and:
+        - not:
+          - eq:
+            - em_instance_size
+            - "Simple"
+        - is_advanced_installation
+    title: "Cluster Name"
+    type: string
+    default: "emcc-cls"
+    required: true
+    pattern: "^[a-zA-Z][a-zA-Z0-9-]{1,10}$"
+    description: "The name of the database cluster must start with letter, cannot be longer than 11 characters and can contain only letters, numbers and hyphen (-)."
+
+  # TODO: Must correspond to EM Size settings for min values
+  db_system_storage_size:
+    visible:
+      not:
+        - eq:
+          - em_instance_size
+          - "Simple"
+    title: "Available storage (GB)*"
+    description: "The recommended storage size:Small 256GB, Medium 512 GB, Large 1024 GB and X-Large 2048GB. The maximum storage size is 40960 GB."
+    type: enum
+    enum:
+    - "256"
+    - "512"
+    - "1024"
+    - "2048"
+    - "4096"
+    - "6144"
+    - "8192"
+    - "10240"
+    - "12288"
+    - "14336"
+    - "16384"
+    - "18432"
+    - "20480"
+    - "22528"
+    - "24576"
+    - "26624"
+    - "28672"
+    - "30720"
+    - "32768"
+    - "34816"
+    - "36864"
+    - "38912"
+    - "40960"
+    default: "512"
+    required: true
+
+  db_system_ssh_public_key:
+    visible:
+      and:
+        - not:
+          - use_same_ssh_public_key
+        - not:
+          - eq:
+            - em_instance_size
+            - "Simple"
+    title: "OCI DB System SSH Public Key"
+    description: "Use the corresponding private key to access the DB system compute instances"
+    pattern: "ssh[-].*"
+    type: string
+
+  #
+  # DB System - Dataguard section
+  #
+  is_db_system_dataguard_enabled:
+    visible:
+      not:
+        - eq:
+          - em_instance_size
+          - "Simple"
+    title: "Enable Data Guard for management repository*"
+    type: boolean
+    default: false
+    required: true
+    description: Enable Data Guard support for management repository
+
+  db_system_dg_name:
+    visible:
+      and:
+        - and:
+          - not:
+            - eq:
+              - em_instance_size
+              - "Simple"
+          - is_db_system_dataguard_enabled
+        - is_advanced_installation
+    title: Data Guard DB System Name*
+    description: Name of the Data Guard database system.
+    default: EM-OMR-DG
+    type: string
+    required: true
+
+  db_system_dg_availability_domain:
+    visible:
+      and:
+        - not:
+          - eq:
+            - em_instance_size
+            - "Simple"
+        - is_db_system_dataguard_enabled
+    type: oci:identity:availabilitydomain:name
+    title: "Select an availability domain for the Data Guard"
+    dependsOn:
+      compartmentId: ${db_compartment_ocid}
+    required: true
+    description: "The availability domain for the Data Guard database nodes. It is recommended to choose a different availability domain than the primary database system"
+
+  db_system_dg_small_instance_shape:
+    visible:
+      and:
+        - eq:
+            - em_instance_size
+            - "Small"
+        - is_db_system_dataguard_enabled
+    type: oci:core:instanceshape:name
+    title: Data Guard DB system instance shape
+    description: The shape for the two DB system instances for Data Guard. Supported VM shapes for "Small" size are VM.Standard2.2, VM.Standard2.4, VM.Standard2.8, VM.Standard2.16, VM.Standard2.24
+    required: true
+    dependsOn:
+      compartmentId: ${db_compartment_ocid}
+    default: "VM.Standard2.4"
+
+  db_system_dg_medium_instance_shape:
+    visible:
+      and:
+        - eq:
+            - em_instance_size
+            - "Medium"
+        - is_db_system_dataguard_enabled
+    type: oci:core:instanceshape:name
+    title: Data Guard DB system instance shape
+    description: The shape for the two DB system instances for Data Guard. Supported VM shapes for "Medium" size are VM.Standard2.4, VM.Standard2.8, VM.Standard2.16, VM.Standard2.24
+    required: true
+    dependsOn:
+      compartmentId: ${db_compartment_ocid}
+    default: "VM.Standard2.8"
+
+  db_system_dg_large_instance_shape:
+    visible:
+      and:
+        - eq:
+            - em_instance_size
+            - "Large"
+        - is_db_system_dataguard_enabled
+    type: oci:core:instanceshape:name
+    title: Data Guard DB system instance Shape
+    description: The shape for the two DB system instances for Data Guard. Supported VM shapes for "Large" size are VM.Standard2.8, VM.Standard2.16, VM.Standard2.24
+    required: true
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+    default: "VM.Standard2.16"
+
+  db_system_dg_hostname_prefix:
+    visible:
+      and:
+        - and:
+          - not:
+            - eq:
+              - em_instance_size
+              - "Simple"
+          - is_db_system_dataguard_enabled
+        - is_advanced_installation
+    title: Data Guard Database Hostname Prefix*
+    description: The database hostname prefix must start with letter, should be between 1 and 30 characters in length and contain only letters, numbers and hyphen (-) characters.
+    type: string
+    default: "emdbdghost"
+    required: true
+    pattern: "^[a-zA-Z][a-zA-Z0-9-]{1,29}$"
