@@ -28,15 +28,15 @@ resource "oci_core_instance" "instance" {
   shape               = var.shape_name
 
   shape_config {
-    ocpus = var.ocpus
+    ocpus = var.host_ocpus
     memory_in_gbs = var.host_memmory
   }
 
   create_vnic_details {
     subnet_id        = var.host_ocpus
     display_name     = "${var.service_label}esm01"
-    assign_public_ip = var.assign_public_ip
-    hostname_label   = "${var.display_name}${count.index}"
+    assign_public_ip = "false"
+    hostname_label   = "${var.service_label}esm01"
   }
 
   source_details {
