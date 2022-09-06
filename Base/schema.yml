@@ -53,12 +53,12 @@ variables:
   region:
     type: oci:identity:region_subscriptions:name
     title: "Region"
-    description: "The region for resources deployment."
+    description: "The region for resources Deployment."
     required: true
 
   target_compartment_ocid:
     type: oci:identity:compartment:id
-    title: "Deplomant Campartment"
+    title: "Deployment Campartment"
     description: "The enclosing compartment where Landing Zone compartments will be created. If not provided and \"Use enclosing compartment?\" is checked, an enclosing compartment is created under the root compartment."
     required: true 
 
