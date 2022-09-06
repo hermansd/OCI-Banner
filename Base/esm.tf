@@ -23,7 +23,7 @@ resource "oci_core_instance" "instance" {
   #count               = var.num_instances
   availability_domain = var.target_ad
   #fault_domain        = var.fault_domain
-  compartment_id      = var.compartment_ocid
+  compartment_id      = var.target_compartment_ocid
   display_name        = "${var.service_label}esm01"
   shape               = var.shape_name
 
