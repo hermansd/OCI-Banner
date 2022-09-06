@@ -65,7 +65,7 @@ resource "oci_core_volume" "block_volume_paravirtualized" {
   availability_domain = var.target_ad
   compartment_id      =  var.target_compartment_ocid
   display_name        = "${var.service_label}esm01"
-  size_in_gbs         = var.attached_volume_size
+  size_in_gbs         = 100 #var.attached_volume_size
   #defined_tags        = {"Automation.CtreatedBy":"Terraform"}
 }
 
