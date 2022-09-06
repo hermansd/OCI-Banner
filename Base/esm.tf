@@ -35,7 +35,7 @@ resource "oci_core_instance" "esm01" {
   create_vnic_details {
     subnet_id        = var.subnet_ocid
     display_name     = "${var.service_label}esm01"
-    assign_public_ip = "false"
+    assign_public_ip = "true"
     hostname_label   = "${var.service_label}esm01"
   }
 
