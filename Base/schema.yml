@@ -2,9 +2,9 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
 title: "OCI Quick Base Banner Deployment"
-stackDescription:  "A stack to deploy a set of Base OCI servcies for getting started with standing up a Banner Environment." +
-                    "Deployed as part of stack:" +
-                    "- ESM"
+stackDescription:  "A stack to deploy a set of Base OCI servcies for getting started with standing up a Banner Environment.
+                    Deployed as part of stack: 
+                    - ESM"
 schemaVersion: 1.1.0
 version: "0.0.1"
 locale: "en"
