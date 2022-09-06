@@ -18,6 +18,7 @@ variable "vcn_compartment_ocid" {}
 variable "vcn_ocid" {}
 variable "subnet_compartment_ocid" {}
 variable "subnet_ocid" {}
+variable "assign_public_ip" {}
 variable "sshkey" {}
 
 

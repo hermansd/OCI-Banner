@@ -1,22 +1,5 @@
-# Copyright (c) 2021 Oracle and/or its affiliates.
+# Copyright (c) 2022 Oracle and/or its affiliates.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
-
-#module "esm_server" {
-#  //count               = 1
-#  source              = "../modules/server"
-# tenancy_ocid        = var.tenancy_ocid
-#  num_instances       = 1
-#  shape               = var.shape_name
-#  ocpus               = 1
-#  image_ocid          = var.os_image_ocid
-#  avalability_domain  = var.target_ad
-#  compartment_ocid    = var.target_compartment_ocid
-#  display_name        = "DNS2"
-#  subnet_ocid         = var.subnet_ocid
-#  assign_public_ip    = false
-#  ssh_public_key      = var.sshkey
-  #defined_tags        = {"Automation.CtreatedBy":"Terraform","Automation.Environment":"Prodcution","Automation.Type0":"DNS"}
-#} 
 
 
 resource "oci_core_instance" "esm01" {
@@ -35,7 +18,7 @@ resource "oci_core_instance" "esm01" {
   create_vnic_details {
     subnet_id        = var.subnet_ocid
     display_name     = "${var.service_label}esm01"
-    assign_public_ip = "true"
+    assign_public_ip = var.assign_public_ip
     hostname_label   = "${var.service_label}esm01"
   }
 
@@ -61,7 +44,6 @@ resource "oci_core_instance" "esm01" {
 }
 
 resource "oci_core_volume" "block_volume_paravirtualized" {
-  #count               = var.num_instances * var.num_volumes
   availability_domain = var.target_ad
   compartment_id      =  var.target_compartment_ocid
   display_name        = "${var.service_label}esm01"
