@@ -62,9 +62,9 @@ resource "oci_core_instance" "instance" {
 
 resource "oci_core_volume" "block_volume_paravirtualized" {
   #count               = var.num_instances * var.num_volumes
-  availability_domain = var.avalability_domain
-  compartment_id      = var.compartment_ocid
-  display_name        = "BlockParavirtualized"
+  availability_domain = var.target_ad
+  compartment_id      =  var.target_compartment_ocid
+  display_name        = "${var.service_label}esm01"
   size_in_gbs         = var.attached_volume_size
   #defined_tags        = {"Automation.CtreatedBy":"Terraform"}
 }
