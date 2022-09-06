@@ -27,6 +27,7 @@ variableGroups:
       - "vcn_ocid"
       - "subnet_compartment_ocid"
       - "subnet_ocid"
+      - "assign_public_ip"
       - ${sshkey}
      
 
