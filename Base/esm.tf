@@ -33,7 +33,7 @@ resource "oci_core_instance" "esm01" {
   }
 
   create_vnic_details {
-    subnet_id        = var.host_ocpus
+    subnet_id        = var.subnet_ocid
     display_name     = "${var.service_label}esm01"
     assign_public_ip = "false"
     hostname_label   = "${var.service_label}esm01"
@@ -60,17 +60,17 @@ resource "oci_core_instance" "esm01" {
   #}
 }
 
-#resource "oci_core_volume" "block_volume_paravirtualized" {
-#  #count               = var.num_instances * var.num_volumes
-#  availability_domain = var.target_ad
-#  compartment_id      =  var.target_compartment_ocid
-#  display_name        = "${var.service_label}esm01"
-# size_in_gbs         = 100 #var.attached_volume_size
-#  #defined_tags        = {"Automation.CtreatedBy":"Terraform"}
-#}
+resource "oci_core_volume" "block_volume_paravirtualized" {
+  #count               = var.num_instances * var.num_volumes
+  availability_domain = var.target_ad
+  compartment_id      =  var.target_compartment_ocid
+  display_name        = "${var.service_label}esm01"
+ size_in_gbs         = 100 #var.attached_volume_size
+  #defined_tags        = {"Automation.CtreatedBy":"Terraform"}
+}
 
-#resource "oci_core_volume_attachment" "block_volume_attach_paravirtualized" {
-#  attachment_type = "paravirtualized"
-#  instance_id     = oci_core_instance.esm01.id
-#  volume_id       = oci_core_volume.block_volume_paravirtualized.id
-#}
+resource "oci_core_volume_attachment" "block_volume_attach_paravirtualized" {
+  attachment_type = "paravirtualized"
+  instance_id     = oci_core_instance.esm01.id
+  volume_id       = oci_core_volume.block_volume_paravirtualized.id
+}
