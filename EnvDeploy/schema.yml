@@ -1,8 +1,12 @@
 # Copyright (c) 2021 Oracle and/or its affiliates.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
-title: "OCI Quick Base Banner Deployment"
-stackDescription: "A stack to deploy a set of Basde OCI servcies for getting started with standing up a Banner Environment"
+title: "OCI Quick Banner Deployment"
+stackDescription: "Deploy Banner applciaotn envirmentment.  Tis stack will deploay all servers and resources for a Banner Environment.\n
+                    Deployed as part of stack: \n
+                    - Web Applciation Server(s) \n
+                    - Jobsub Server \n
+                    - Database Server"
 schemaVersion: 1.1.0
 version: "0.0.1"
 locale: "en"
