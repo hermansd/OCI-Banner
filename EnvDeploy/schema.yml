@@ -2,7 +2,7 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
 title: "OCI Quick Banner Deployment"
-stackDescription: "Deploy Banner applciaotn envirmentment.  Tis stack will deploay all servers and resources for a Banner Environment.\n
+stackDescription: "Deploy Banner applciaotn environment.  Tis stack will deploay all servers and resources for a Banner Environment.\n
                     Deployed as part of stack: \n
                     - Web Applciation Server(s) \n
                     - Jobsub Server \n
