@@ -19,7 +19,7 @@
 #} 
 
 
-resource "oci_core_instance" "instance" {
+resource "oci_core_instance" "esm01" {
   #count               = var.num_instances
   availability_domain = var.target_ad
   #fault_domain        = var.fault_domain
@@ -70,8 +70,7 @@ resource "oci_core_volume" "block_volume_paravirtualized" {
 }
 
 resource "oci_core_volume_attachment" "block_volume_attach_paravirtualized" {
-  count           = var.num_instances * var.num_volumes
   attachment_type = "paravirtualized"
-  instance_id     = oci_core_instance.instance.*.id[floor(count.index / var.num_instances)]
-  volume_id       = oci_core_volume.block_volume_paravirtualized.*.id[count.index]
+  instance_id     = oci_core_instance.esm01.id
+  volume_id       = oci_core_volume.block_volume_paravirtualized.id
 }
