@@ -24,6 +24,9 @@ variableGroups:
       - "host_count"
       - "multiple_ads"
       - "target_ad2"
+      - "random_fds"
+      - "target_fd1"
+      = "target_fd2"
       - "shape_name"    
       - "host_ocpus"
       - "host_memmory"
@@ -134,6 +137,7 @@ variables:
     description: "What Fault Domain to deploy hosts in"
     dependsOn:
       compartmentId: ${target_compartment_ocid}
+      availabilityDomainName: ${target_ad1}
     required: true
     visible: 
       and:
@@ -145,6 +149,7 @@ variables:
     description: "What Fault Domain to deploy hosts in"
     dependsOn:
       compartmentId: ${target_compartment_ocid}
+      availabilityDomainName: ${target_ad2}
     required: false
     visible: 
       and:
