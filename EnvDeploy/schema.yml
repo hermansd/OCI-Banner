@@ -48,7 +48,6 @@ variableGroups:
       - db_system_medium_instance_shape
       - db_system_large_instance_shape
       #- db_system_2node_edition
-      - db_system_availability_domain
       - db_system_2node_cluster_name
       - db_system_storage_size
       - db_system_ssh_public_key
@@ -99,7 +98,6 @@ variables:
     description: "What Avalibity Domain to deploy hosts in"
     dependsOn:
       compartmentId: ${target_compartment_ocid}
-    #default: "US-ASHBURN-AD-1"
     required: true 
 
   host_count:
@@ -119,12 +117,39 @@ variables:
     description: "What Avalibity Domain to deploy hosts in"
     dependsOn:
       compartmentId: ${target_compartment_ocid}
-    #default: "US-ASHBURN-AD-2"
-    required: false
+    required: true
     visible: 
       and:
         - multiple_ads
   
+  random_fds:
+    type: boolean
+    title: "Deploy to random Fault Domains"
+    required: false
+    default: false
+
+  target_fd1:
+    type: oci:identity:faultdomain:name	
+    title: "Deplomant Fault Domain"
+    description: "What Fault Domain to deploy hosts in"
+    dependsOn:
+      compartmentId: ${target_compartment_ocid}
+    required: true
+    visible: 
+      and:
+        - random_fds
+
+  target_fd2:
+    type: oci:identity:faultdomain:name	
+    title: "Deplomant Fault Domain"
+    description: "What Fault Domain to deploy hosts in"
+    dependsOn:
+      compartmentId: ${target_compartment_ocid}
+    required: false
+    visible: 
+      and:
+        - random_fds
+
   shape_name:
     type: oci:core:instanceshape:name
     dependsOn:
@@ -368,18 +393,18 @@ variables:
   #   required: true
   #   default: "Enterprise Edition Extreme Performance"
 
-  db_system_availability_domain:
-    visible:
-      not:
-        - eq:
-          - em_instance_size
-          - "Simple"
-    type: oci:identity:availabilitydomain:name
-    title: "Select an availability domain"
-    dependsOn:
-      compartmentId: ${db_compartment_ocid}
-    required: true
-    description: "The availability domain for the database nodes. It is recommended to choose the same availability domain as the primary OMS node"
+#  db_system_availability_domain:
+#    visible:
+#      not:
+#        - eq:
+#          - em_instance_size
+#          - "Simple"
+#    type: oci:identity:availabilitydomain:name
+#    title: "Select an availability domain"
+#    dependsOn:
+#      compartmentId: ${db_compartment_ocid}
+#    required: true
+#    description: "The availability domain for the database nodes. It is recommended to choose the same availability domain as the primary OMS node"
 
 
   db_system_2node_cluster_name:
@@ -479,20 +504,20 @@ variables:
     type: string
     required: true
 
-  db_system_dg_availability_domain:
-    visible:
-      and:
-        - not:
-          - eq:
-            - em_instance_size
-            - "Simple"
-        - is_db_system_dataguard_enabled
-    type: oci:identity:availabilitydomain:name
-    title: "Select an availability domain for the Data Guard"
-    dependsOn:
-      compartmentId: ${db_compartment_ocid}
-    required: true
-    description: "The availability domain for the Data Guard database nodes. It is recommended to choose a different availability domain than the primary database system"
+ # db_system_dg_availability_domain:
+ #   visible:
+ #     and:
+ #       - not:
+ #         - eq:
+ #           - em_instance_size
+ #           - "Simple"
+ #       - is_db_system_dataguard_enabled
+ #  type: oci:identity:availabilitydomain:name
+ #   title: "Select an availability domain for the Data Guard"
+ #   dependsOn:
+ #     compartmentId: ${db_compartment_ocid}
+ #   required: true
+ #   description: "The availability domain for the Data Guard database nodes. It is recommended to choose a different availability domain than the primary database system"
 
   db_system_dg_small_instance_shape:
     visible:

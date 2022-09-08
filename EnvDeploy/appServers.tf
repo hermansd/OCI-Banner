@@ -5,7 +5,7 @@
 resource "oci_core_instance" "appServer" {
   count               = var.host_count
   availability_domain = var.multiple_ads ? (contains(range(1,var.host_count , 2), count.index) ? var.target_ad2 : var.target_ad1) : var.target_ad1
-  fault_domain        = #var.fault_domain
+  fault_domain        = "FAULT-DOMAIN-${random_integer.fault_domanin.resault}"
   compartment_id      = var.target_compartment_ocid
   display_name        = "${var.service_label}app${count.index}"
   shape               = var.shape_name
@@ -41,4 +41,11 @@ resource "oci_core_instance" "appServer" {
   #timeouts {
   #  create = "60m"
   #}
+}
+
+
+
+resource "random_integer" "fault_domain" {
+  min = 1
+  max = 3
 }
