@@ -122,7 +122,8 @@ variables:
     #default: "US-ASHBURN-AD-2"
     required: false
     visible: 
-      - multiple_ads
+      and:
+        - multiple_ads
   
   shape_name:
     type: oci:core:instanceshape:name
