@@ -16,12 +16,14 @@ variableGroups:
     variables:
       - "region"
       - "target_compartment_ocid"
-      - "target_ad"
+      - "target_ad1"
       - "service_label"
  
   - title: "Applicaiton Servers"
     variables:
       - "number_hosts"
+      - "multiple_ads"
+      - "target_ad2"
       - "shape_name"    
       - "host_ocpus"
       - "host_memmory"
