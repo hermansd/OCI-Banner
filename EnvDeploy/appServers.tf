@@ -7,7 +7,7 @@ resource "oci_core_instance" "appServer" {
   availability_domain = var.target_ad1
   #fault_domain        = var.fault_domain
   compartment_id      = var.target_compartment_ocid
-  display_name        = "${var.service_label}esm01"
+  display_name        = "${var.service_label}app${count.index}"
   shape               = var.shape_name
 
   shape_config {
@@ -17,9 +17,9 @@ resource "oci_core_instance" "appServer" {
 
   create_vnic_details {
     subnet_id        = var.subnet_ocid
-    display_name     = "${var.service_label}esm01"
+    display_name     = "${var.service_label}app${count.index}"
     assign_public_ip = var.assign_public_ip
-    hostname_label   = "${var.service_label}esm01"
+    hostname_label   = "${var.service_label}app${count.index}"
   }
 
   source_details {
