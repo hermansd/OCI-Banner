@@ -26,7 +26,7 @@ variableGroups:
       - "target_ad2"
       - "random_fds"
       - "target_fd1"
-      = "target_fd2"
+      - "target_fd2"
       - "shape_name"    
       - "host_ocpus"
       - "host_memmory"
