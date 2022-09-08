@@ -21,7 +21,7 @@ variableGroups:
  
   - title: "Applicaiton Servers"
     variables:
-      - "number_hosts"
+      - "host_count"
       - "multiple_ads"
       - "target_ad2"
       - "shape_name"    
@@ -102,7 +102,7 @@ variables:
     #default: "US-ASHBURN-AD-1"
     required: true 
 
-  number_hosts:
+  host_count:
     type: number
     title: "Number of Applicaiton Servers to create"
     default: 1

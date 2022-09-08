@@ -10,6 +10,7 @@ variable "target_ad2" {
   default = 0 
 }
 variable "multiple_ads" {}
+variable "host_count" {}
 variable "shape_name" {}
 variable "host_ocpus" {
   default = 1

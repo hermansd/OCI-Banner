@@ -3,7 +3,7 @@
 
 
 resource "oci_core_instance" "appServer" {
-  count               = var.number_hosts
+  count               = var.host_count
   availability_domain = var.target_ad1
   #fault_domain        = var.fault_domain
   compartment_id      = var.target_compartment_ocid
