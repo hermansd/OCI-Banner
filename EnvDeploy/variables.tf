@@ -6,7 +6,9 @@ variable "service_label" {}
 
 variable "target_compartment_ocid" {}
 variable "target_ad1" {}
-variable "target_ad2" {}
+variable "target_ad2" {
+  default = 0 
+}
 variable "multiple_ads" {}
 variable "shape_name" {}
 variable "host_ocpus" {
