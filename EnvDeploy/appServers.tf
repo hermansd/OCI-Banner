@@ -48,4 +48,8 @@ resource "oci_core_instance" "appServer" {
 resource "random_integer" "fault_domain" {
   min = 1
   max = 3
+  keepers = {
+    # Generate a new id each time we switch to a new AMI id
+    fd_id = count.index
+  }
 }
