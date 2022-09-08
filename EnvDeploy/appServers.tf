@@ -50,6 +50,6 @@ resource "random_integer" "fault_domain" {
   max = 3
   keepers = {
     # Generate a new id each time we switch to a new AMI id
-    fd_id = count.index
+    fd_id = oci_core_instance.instance.*.id[count.index]
   }
 }
