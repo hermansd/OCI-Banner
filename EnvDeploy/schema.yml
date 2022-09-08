@@ -91,13 +91,13 @@ variables:
     description: "The enclosing compartment where Landing Zone compartments will be created. If not provided and \"Use enclosing compartment?\" is checked, an enclosing compartment is created under the root compartment."
     required: true 
 
-  target_ad:
+  target_ad1:
     type: oci:identity:availabilitydomain:name
     title: "Deplomant Avalaibity Domain"
     description: "What Avalibity Domain to deploy hosts in"
     dependsOn:
       compartmentId: ${target_compartment_ocid}
-    default: "US-ASHBURN-AD-1"
+    #default: "US-ASHBURN-AD-1"
     required: true 
 
   number_hosts:
@@ -105,6 +105,23 @@ variables:
     title: "Number of Applicaiton Servers to create"
     default: 1
 
+  multiple_ads:
+    type: boolean
+    title: "Deploy to multiple Availability Domains"
+    required: false
+    default: false
+
+  target_ad2:
+    type: oci:identity:availabilitydomain:name
+    title: "Deplomant Avalaibity Domain"
+    description: "What Avalibity Domain to deploy hosts in"
+    dependsOn:
+      compartmentId: ${target_compartment_ocid}
+    #default: "US-ASHBURN-AD-2"
+    required: false
+    visible: 
+      - multiple_ads
+  
   shape_name:
     type: oci:core:instanceshape:name
     dependsOn:
