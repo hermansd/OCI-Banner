@@ -9,16 +9,16 @@ variable "target_ad1" {}
 variable "target_ad2" {
   default = 0 
 }
-variable "multiple_fds" {
-  default = true
-}
+variable "multiple_ads" {}
 variable "target_fd1" {
   default = 0 
 }
 variable "target_fd2" {
   default = 0 
 }
-variable "random_fds" {}
+variable "random_fds" {
+  default = true
+}
 variable "host_count" {}
 variable "shape_name" {}
 variable "host_ocpus" {
