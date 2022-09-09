@@ -5,6 +5,7 @@
 variable "service_label" {}
 variable "target_compartment_ocid" {}
 variable "target_ad1" {}
+variable "sshkey" {}
 
 
 #Application Servers
@@ -86,6 +87,6 @@ variable "private_key_password" {
   default = ""
 }
 variable "region" {}
-variable "fault_doamin" {
+variable "fault_domain" {
   default = ["FAULT-DOMAIN-1", "FAULT-DOMAIN-2", "FAULT-DOMAIN-3"]
 }
