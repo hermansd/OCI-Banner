@@ -22,6 +22,7 @@ variableGroups:
  
   - title: "Applicaiton Servers"
     variables:
+      - "app_create_host"
       - "app_host_count"
       - "app_multiple_ads"
       - "app_target_ad2"
@@ -138,6 +139,7 @@ variables:
     type: boolean
     title: "Create Applicaiton Server(s) for Banenr?"
     required: false
+    default: true
 
   app_host_count:
     type: number
@@ -173,6 +175,9 @@ variables:
     title: "Choose Fault Domains to deploy to?"
     required: false
     default: false
+    visible: 
+      and:
+        - app_create_host
 
   app_target_fd1:
     type: oci:identity:faultdomain:name	
@@ -345,6 +350,7 @@ variables:
     type: boolean
     title: "Create Job Submition server for Banenr?"
     required: false
+    default: false
 
   js_shape_name:
     type: oci:core:instanceshape:name
