@@ -1,11 +1,15 @@
 # Copyright (c) 2022 Oracle and/or its affiliates.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
+local{ 
+  fault_domain = ["FAULT-DOMAIN-1", "FAULT-DOMAIN-2", "FAULT-DOMAIN-3"]
+}
+
 
 resource "oci_core_instance" "appServer" {
   count               = var.host_count
   availability_domain = var.multiple_ads ? (contains(range(1,var.host_count , 2), count.index) ? var.target_ad2 : var.target_ad1) : var.target_ad1
-  fault_domain        = "FAULT-DOMAIN-${floor((count.index + 1)/ var.host_count)}"
+  fault_domain        = element(local.fault_domain,count.index)
   compartment_id      = var.target_compartment_ocid
   display_name        = "${var.service_label}app${count.index}"
   shape               = var.shape_name
