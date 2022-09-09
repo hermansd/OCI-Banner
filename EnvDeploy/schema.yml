@@ -312,6 +312,8 @@ variables:
     title: "Number of Cores"
     default: 1
     visible: 
+      and:
+        - js_create_host
       or:
         - eq:
           - js_shape_name
@@ -319,14 +321,14 @@ variables:
         - eq:
           - js_shape_name
           - "VM.Standard.E3.Flex"
-      and:
-        - js_create_host
 
   js_host_memmory:
     type: number
     title: "Amount of Memmory for Host"
     default: 16
     visible: 
+      and:
+        - js_create_host
       or:
         - eq:
           - js_shape_name
@@ -334,9 +336,7 @@ variables:
         - eq:
           - js_shape_name
           - "VM.Standard.E3.Flex"
-      and:
-        - js_create_host
-
+      
   js_os_image_ocid:
     type: oci:core:image:id
     dependsOn:
@@ -390,6 +390,9 @@ variables:
     title: "Select Subnet For deployment"
 #    description: "CIDR blocks for the Exadata VCNs in CIDR notation. Be mindful about Exadata \"Requirements for IP Address Space\" in <a href=\"https://docs.oracle.com/en-us/iaas/Content/Database/Tasks/exanetwork.htm\">OCI documentation</a>. (Type the name and hit enter to enter multiple values, up to a maximum of 9)"
     default: ${target_compartment_ocid}
+    visible:
+      and:
+        - js_create_host 
   
   js_assign_public_ip:
     type: boolean
