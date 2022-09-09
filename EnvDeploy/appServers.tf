@@ -18,7 +18,7 @@ locals{
   os_image_ocid =    var.app_os_image_ocid
   subnet_ocid =      var.app_subnet_ocid
   assign_public_ip = var.app_assign_public_ip
-  sshkey =           var.app_sshkey
+  sshkey =           var.app_change_ssh ? var.app_sshkey : var.sshkey
 }
 
 

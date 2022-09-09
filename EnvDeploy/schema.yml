@@ -56,12 +56,13 @@ variableGroups:
       - "js_subnet_compartment_ocid"
       - "js_subnet_ocid"
       - "js_assign_public_ip"
-      - "app_sshkey"
+      - "js_change_ssh"
+      - "js_sshkey"
 
   - title: "Database Server(s)"
     variables:
       #- db_create_dataguard  (support in later release)
-      - db_create_databse
+      - db_create_database
       - db_compartment_ocid
       - db_system_name
       - db_sys_password
