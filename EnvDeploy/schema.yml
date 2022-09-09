@@ -360,6 +360,7 @@ variables:
     title: "Existing enclosing compartment"
     description: "The enclosing compartment where Landing Zone compartments will be created. If not provided and \"Use enclosing compartment?\" is checked, an enclosing compartment is created under the root compartment."
     required: true 
+    defauilt: ${target_compartment_ocid}
     visible:
       and:
         - js_create_host 
