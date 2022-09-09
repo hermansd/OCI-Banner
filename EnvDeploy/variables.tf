@@ -16,7 +16,7 @@ variable "app_target_fd1" {}
 variable "app_target_fd2" {
   default = 0 
 }
-variable "app_,ultiple_fds" {}
+variable "app_multiple_fds" {}
 variable "app_host_count" {}
 variable "app_shape_name" {}
 variable "app_host_ocpus" {
