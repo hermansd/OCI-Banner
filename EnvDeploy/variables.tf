@@ -6,34 +6,30 @@ variable "service_label" {}
 
 variable "target_compartment_ocid" {}
 variable "target_ad1" {}
-variable "target_ad2" {
+variable "app_target_ad2" {
   default = 0 
 }
-variable "multiple_ads" {}
-variable "target_fd1" {
+variable "app_multiple_ads" {}
+variable "app_target_fd1" {}
+variable "app_target_fd2" {
   default = 0 
 }
-variable "target_fd2" {
-  default = 0 
-}
-variable "random_fds" {
-  default = true
-}
-variable "host_count" {}
-variable "shape_name" {}
-variable "host_ocpus" {
+variable "app_,ultiple_fds" {}
+variable "app_host_count" {}
+variable "app_shape_name" {}
+variable "app_host_ocpus" {
   default = 1
 }
-variable "host_memmory" {
+variable "app_host_memmory" {
   default = 16
 }
-variable "os_image_ocid" {}
-variable "vcn_compartment_ocid" {}
-variable "vcn_ocid" {}
-variable "subnet_compartment_ocid" {}
-variable "subnet_ocid" {}
-variable "assign_public_ip" {}
-variable "sshkey" {}
+variable "app_os_image_ocid" {}
+variable "app_vcn_compartment_ocid" {}
+variable "app_vcn_ocid" {}
+variable "app_subnet_compartment_ocid" {}
+variable "app_subnet_ocid" {}
+variable "app_assign_public_ip" {}
+variable "app_sshkey" {}
 
 
 variable "tenancy_ocid" {}

@@ -21,21 +21,24 @@ variableGroups:
  
   - title: "Applicaiton Servers"
     variables:
-      - "host_count"
-      - "multiple_ads"
-      - "target_ad2"
-      - "random_fds"
-      - "target_fd1"
-      - "target_fd2"
-      - "shape_name"    
-      - "host_ocpus"
-      - "host_memmory"
-      - "os_image_ocid"
-      - "vcn_compartment_ocid"
-      - "vcn_ocid"
-      - "subnet_compartment_ocid"
-      - "subnet_ocid"
-      - ${sshkey}
+      - "app_host_count"
+      - "app_multiple_ads"
+      - "app_target_ad2"
+      - "app_random_fds"
+      - "app_target_fd1"
+      - "app_target_fd2"
+      - "app_shape_name"    
+      - "app_host_ocpus"
+      - "app_host_memmory"
+      - "app_os_image_ocid"
+      - "app_vcn_compartment_ocid"
+      - "app_vcn_ocid"
+      - "app_subnet_compartment_ocid"
+      - "app_subnet_ocid"
+      - $app_sshkey
+
+  - title: "Jobsub Server"
+    variables:
 
   - title: "Database Server(s)"
     variables:
@@ -104,18 +107,18 @@ variables:
       compartmentId: ${target_compartment_ocid}
     required: true 
 
-  host_count:
+  app_host_count:
     type: number
     title: "Number of Applicaiton Servers to create"
     default: 1
 
-  multiple_ads:
+  app_multiple_ads:
     type: boolean
     title: "Deploy to multiple Availability Domains"
     required: false
     default: false
 
-  target_ad2:
+  app_target_ad2:
     type: oci:identity:availabilitydomain:name
     title: "Deplomant Avalaibity Domain"
     description: "What Avalibity Domain to deploy hosts in"
@@ -126,13 +129,13 @@ variables:
       and:
         - multiple_ads
   
-  random_fds:
+  app_multiple_fds:
     type: boolean
     title: "Choose Fault Domains to deploy to?"
     required: false
     default: false
 
-  target_fd1:
+ app_target_fd1:
     type: oci:identity:faultdomain:name	
     title: "Deplomant Fault Domain"
     description: "What Fault Domain to deploy hosts in"
@@ -144,7 +147,7 @@ variables:
       and:
         - random_fds
 
-  target_fd2:
+  app_target_fd2:
     type: oci:identity:faultdomain:name	
     title: "Deplomant Fault Domain"
     description: "What Fault Domain to deploy hosts in"
@@ -156,7 +159,7 @@ variables:
       and:
         - random_fds
 
-  shape_name:
+  app_shape_name:
     type: oci:core:instanceshape:name
     dependsOn:
       compartmentId: ${target_compartment_ocid}
@@ -165,7 +168,7 @@ variables:
     default: "VM.Standard.E4.Flex"
     required: true 
 
-  host_ocpus:
+ app_host_ocpus:
     type: number
     title: "Number of Cores"
     default: 1
@@ -178,7 +181,7 @@ variables:
           - ${shape_name}
           - "VM.Standard.E3.Flex"
 
-  host_memmory:
+  app_host_memmory:
     type: number
     title: "Amount of Memmory for Host"
     default: 16
@@ -191,7 +194,7 @@ variables:
           - ${shape_name}
           - "VM.Standard.E3.Flex"
 
-  os_image_ocid:
+  app_os_image_ocid:
     type: oci:core:image:id
     dependsOn:
       compartmentId: ${target_compartment_ocid}
@@ -202,13 +205,13 @@ variables:
     required: true 
 
 
-  vcn_compartment_ocid:
+  app_vcn_compartment_ocid:
     type: oci:identity:compartment:id
     title: "Existing enclosing compartment"
     description: "The enclosing compartment where Landing Zone compartments will be created. If not provided and \"Use enclosing compartment?\" is checked, an enclosing compartment is created under the root compartment."
     required: true 
 
-  vcn_ocid:
+  app_vcn_ocid:
     type: oci:core:vcn:id
     dependsOn:
       compartmentId: ${vcn_compartment_ocid}
@@ -217,13 +220,13 @@ variables:
 #    description: "CIDR blocks for the Exadata VCNs in CIDR notation. Be mindful about Exadata \"Requirements for IP Address Space\" in <a href=\"https://docs.oracle.com/en-us/iaas/Content/Database/Tasks/exanetwork.htm\">OCI documentation</a>. (Type the name and hit enter to enter multiple values, up to a maximum of 9)"
     default: false
 
-  subnet_compartment_ocid:
+  app_subnet_compartment_ocid:
     type: oci:identity:compartment:id
     title: "Existing enclosing compartment"
     description: "The enclosing compartment where Landing Zone compartments will be created. If not provided and \"Use enclosing compartment?\" is checked, an enclosing compartment is created under the root compartment."
     required: true 
 
-  subnet_ocid:
+  app_subnet_ocid:
     type: oci:core:subnet:id
     dependsOn:
       compartmentId: ${subnet_compartment_ocid}
@@ -233,7 +236,7 @@ variables:
 #    description: "CIDR blocks for the Exadata VCNs in CIDR notation. Be mindful about Exadata \"Requirements for IP Address Space\" in <a href=\"https://docs.oracle.com/en-us/iaas/Content/Database/Tasks/exanetwork.htm\">OCI documentation</a>. (Type the name and hit enter to enter multiple values, up to a maximum of 9)"
     default: ${vcn_compartment_ocid}
 
-  sshkey:
+  app_sshkey:
     type: oci:core:ssh:publickey
     title: "SSH Key for Hosts"
     required: true 
