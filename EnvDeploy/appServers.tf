@@ -10,7 +10,7 @@ locals{
   multiple_fds =     var.app_multiple_fds
   target_fd1 =       var.app_target_fd1
   target_fd2 =       var.app_target_fd2
-  compartment_ocid = var.app_target_compartment_ocid
+  compartment_ocid = var.target_compartment_ocid
   service_label =    var.app_service_label
   shape_name =       var.app_shape_name
   host_ocpus =       var.app_host_ocpus
@@ -18,8 +18,6 @@ locals{
   os_image_ocid =    var.app_os_image_ocid
   subnet_ocid =      var.app_subnet_ocid
   assign_public_ip = var.app_assign_public_ip
-
-
 }
 
 
