@@ -298,7 +298,7 @@ variables:
 
 # "Oracle Database System Details"
 
-  db_create_databse:
+  db_create_database:
     type: boolean
     title: "Create Databse for Banenr?"
     required: false
@@ -311,7 +311,7 @@ variables:
     required: true
     visible: 
       eq:
-        - db_create_databse
+        - db_create_database
 
   db_system_name:
     title: DB System Name*
@@ -321,7 +321,7 @@ variables:
     required: true
     visible: 
       eq:
-        - db_create_databse
+        - db_create_database
 
   db_sys_password:
     type: password
@@ -333,7 +333,7 @@ variables:
     confirmation: true
     visible: 
       eq:
-        - db_create_databse
+        - db_create_database
 
   dbsnmp_password:
     type: password
@@ -345,7 +345,7 @@ variables:
     confirmation: true
     visible: 
       eq:
-        - db_create_databse
+        - db_create_database
 
   db_hostname_prefix:
     title: Database Hostname Prefix*
@@ -356,7 +356,7 @@ variables:
     pattern: "^[a-zA-Z][a-zA-Z0-9-]{1,29}$"
     visible: 
       eq:
-        - db_create_databse
+        - db_create_database
 
   db_system_db_name:
     title: "Database Name"
@@ -367,7 +367,7 @@ variables:
     description: "Name of the Database. Must start with letter, can have a maximum of 8 characters and only alphanumeric characters"
     visible: 
       eq:
-        - db_create_databse
+        - db_create_database
 
   # TODO: Must exclude 2.1 shape - unsupported for 2-node RAC
   db_system_license:
@@ -380,7 +380,7 @@ variables:
     default: "LICENSE_INCLUDED"
     visible: 
       eq:
-        - db_create_databse
+        - db_create_database
 
   db_system_small_instance_shape:
     type: oci:core:instanceshape:name
@@ -392,7 +392,7 @@ variables:
       compartmentId: ${db_compartment_ocid}
     visible: 
       eq:
-        - db_create_databse  
+        - db_create_database  
 
   db_system_medium_instance_shape:
     type: oci:core:instanceshape:name
@@ -404,7 +404,7 @@ variables:
       compartmentId: ${db_compartment_ocid}
     visible: 
       eq:
-        - db_create_databse
+        - db_create_database
 
 
   db_system_large_instance_shape:
@@ -417,7 +417,7 @@ variables:
       compartmentId: ${db_compartment_ocid}
     visible: 
       eq:
-        - db_create_databse
+        - db_create_database
 
 
   # db_system_2node_edition:
@@ -455,7 +455,7 @@ variables:
     description: "The name of the database cluster must start with letter, cannot be longer than 11 characters and can contain only letters, numbers and hyphen (-)."
     visible: 
       eq:
-        - db_create_databse
+        - db_create_database
 
   # TODO: Must correspond to EM Size settings for min values
   db_system_storage_size:
@@ -490,12 +490,12 @@ variables:
     required: true
     visible: 
       eq:
-        - db_create_databse
+        - db_create_database
 
   db_system_ssh_public_key:
     visible:
       eq:
-        - db_create_databse
+        - db_create_database
       and:
         - not:
           - use_same_ssh_public_key
@@ -519,7 +519,7 @@ variables:
     description: Enable Data Guard support for management repository
     visible: 
       eq:
-        - db_create_databse
+        - db_create_database
 
   db_system_dg_name:
     visible:
@@ -529,7 +529,7 @@ variables:
             - eq:
               - em_instance_size
               - "Simple"
-              - db_create_databse
+              - db_create_database
           - is_db_system_dataguard_enabled
         - is_advanced_installation
     title: Data Guard DB System Name*
