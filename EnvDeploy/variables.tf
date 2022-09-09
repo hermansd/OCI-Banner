@@ -12,7 +12,9 @@ variable "app_target_ad2" {
   default = 0 
 }
 variable "app_multiple_ads" {}
-variable "app_target_fd1" {}
+variable "app_target_fd1" {
+  default = 0 
+}
 variable "app_target_fd2" {
   default = 0 
 }
