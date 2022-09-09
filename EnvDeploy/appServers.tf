@@ -11,7 +11,7 @@ locals{
   target_fd1 =       var.app_target_fd1
   target_fd2 =       var.app_target_fd2
   compartment_ocid = var.target_compartment_ocid
-  service_label =    var.app_service_label
+  service_label =    var.service_label
   shape_name =       var.app_shape_name
   host_ocpus =       var.app_host_ocpus
   host_memmory =     var.app_host_memmory
