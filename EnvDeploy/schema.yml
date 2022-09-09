@@ -24,7 +24,7 @@ variableGroups:
       - "app_host_count"
       - "app_multiple_ads"
       - "app_target_ad2"
-      - "app_random_fds"
+      - "app_multiple_fds"
       - "app_target_fd1"
       - "app_target_fd2"
       - "app_shape_name"    
@@ -35,7 +35,7 @@ variableGroups:
       - "app_vcn_ocid"
       - "app_subnet_compartment_ocid"
       - "app_subnet_ocid"
-      - $app_sshkey
+      - "app_sshkey"
 
   - title: "Jobsub Server"
     variables:
