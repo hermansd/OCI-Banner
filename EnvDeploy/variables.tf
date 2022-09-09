@@ -52,20 +52,36 @@ variable "lb_create_lb" { default = false }
 variable "js_create_host" {
   default = false
   }
-variable "js_shape_name"     {}
+variable "js_shape_name"     {
+  default = ""
+}
 variable "js_host_ocpus" {
   default = 1
 }
 variable "js_host_memmory" {
   default = 16
 }
-variable "js_os_image_ocid" {}
-variable "js_vcn_compartment_ocid" {}
-variable "js_vcn_ocid" {}
-variable "js_subnet_compartment_ocid" {}
-variable "js_subnet_ocid" {}
-variable "js_assign_public_ip" {}
-variable "js_change_ssh" {}
+variable "js_os_image_ocid" {
+  default = ""
+}
+variable "js_vcn_compartment_ocid" {
+  default = ""
+}
+variable "js_vcn_ocid" {
+  default = ""
+}
+variable "js_subnet_compartment_ocid" {
+  default = ""
+}
+variable "js_subnet_ocid" {
+  default = ""
+}
+variable "js_assign_public_ip" {
+  default = ""
+}
+variable "js_change_ssh" {
+  default = ""
+}
 variable "js_sshkey" {
   default = ""
 }
