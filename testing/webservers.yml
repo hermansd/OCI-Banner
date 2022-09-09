@@ -1,0 +1,49 @@
+---
+- hosts: all
+  user: opc
+  become: true
+
+  vars_files:
+    - vars.yml
+
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+
+  tasks:
+    - name: Update all packages to the latest version
+      package:
+        upgrade: dist
+
+    - name: install Nginix services
+      package:
+        name: "nginix"
+        state: present
+        update_cache: yes
+
+    #    - name: Install dnsutils for DNS
+    #      package:
+    #        name: dnsutils
+    #        state: present
+    #        update_cache: yes
+
+    #- name: Copy named configuraation files.
+    #  copy:
+    #    src: "{{ item.src }}"
+    #    dest: "{{ item.dest }}"
+    #    owner: root
+    #    group: root
+    #    mode: 0644
+    #  with_items:
+    #    - src: named/named.conf
+    #      dest: /etc/named.conf
+    #  notify:
+    #    - restart named
+
+    - name: Ensure Nginix is start and configure to run at boot
+      service:
+        name: nginix
+        state: started
+        enabled: true
