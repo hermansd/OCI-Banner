@@ -295,6 +295,128 @@ variables:
     title: "Create Job Submition server for Banenr?"
     required: false
 
+  js_shape_name:
+    type: oci:core:instanceshape:name
+    dependsOn:
+      compartmentId: ${target_compartment_ocid}
+    title: "Choose Shape of Host"
+    description: "The OS that will be installed in the Job Submition host"
+    default: "VM.Standard.E4.Flex"
+    required: true 
+    visible:
+      and:
+        - js_create_host 
+
+  js_host_ocpus:
+    type: number
+    title: "Number of Cores"
+    default: 1
+    visible: 
+      or:
+        - eq:
+          - js_shape_name
+          - "VM.Standard.E4.Flex"
+        - eq:
+          - js_shape_name
+          - "VM.Standard.E3.Flex"
+      and:
+        - js_create_host
+
+  js_host_memmory:
+    type: number
+    title: "Amount of Memmory for Host"
+    default: 16
+    visible: 
+      or:
+        - eq:
+          - js_shape_name
+          - "VM.Standard.E4.Flex"
+        - eq:
+          - js_shape_name
+          - "VM.Standard.E3.Flex"
+      and:
+        - js_create_host
+
+  js_os_image_ocid:
+    type: oci:core:image:id
+    dependsOn:
+      compartmentId: ${target_compartment_ocid}
+      operatingSystem: "Oracle Linux"
+    title: "Choose and OS Image"
+    description: "the OS that will be installed in the host"
+    default: "Oracle-Linux-8.6*"
+    required: true 
+    visible:
+      and:
+        - js_create_host 
+
+
+  js_vcn_compartment_ocid:
+    type: oci:identity:compartment:id
+    title: "Existing enclosing compartment"
+    description: "The enclosing compartment where Landing Zone compartments will be created. If not provided and \"Use enclosing compartment?\" is checked, an enclosing compartment is created under the root compartment."
+    required: true 
+    visible:
+      and:
+        - js_create_host 
+
+  js_vcn_ocid:
+    type: oci:core:vcn:id
+    dependsOn:
+      compartmentId: ${js_vcn_compartment_ocid}
+    required: true
+    title: "Select VCN For deployment"
+#    description: "CIDR blocks for the Exadata VCNs in CIDR notation. Be mindful about Exadata \"Requirements for IP Address Space\" in <a href=\"https://docs.oracle.com/en-us/iaas/Content/Database/Tasks/exanetwork.htm\">OCI documentation</a>. (Type the name and hit enter to enter multiple values, up to a maximum of 9)"
+    default: false
+    visible:
+      and:
+        - js_create_host 
+
+  js_subnet_compartment_ocid:
+    type: oci:identity:compartment:id
+    title: "Existing enclosing compartment"
+    description: "The enclosing compartment where Landing Zone compartments will be created. If not provided and \"Use enclosing compartment?\" is checked, an enclosing compartment is created under the root compartment."
+    required: true 
+    visible:
+      and:
+        - js_create_host 
+
+  js_subnet_ocid:
+    type: oci:core:subnet:id
+    dependsOn:
+      compartmentId: ${js_subnet_compartment_ocid}
+      vcnId: ${js_vcn_ocid}
+    required: true
+    title: "Select Subnet For deployment"
+#    description: "CIDR blocks for the Exadata VCNs in CIDR notation. Be mindful about Exadata \"Requirements for IP Address Space\" in <a href=\"https://docs.oracle.com/en-us/iaas/Content/Database/Tasks/exanetwork.htm\">OCI documentation</a>. (Type the name and hit enter to enter multiple values, up to a maximum of 9)"
+    default: ${target_compartment_ocid}
+  
+  js_assign_public_ip:
+    type: boolean
+    title: "Assign public IP address to hosts."
+    required: false
+    default: false
+    visible:
+      and:
+        - js_create_host 
+  
+  js_change_ssh:
+    type: boolean
+    title: "Use diffrent ssh key for application servers."
+    required: false
+    default: false
+    visible:
+      and:
+        - js_create_host 
+
+  js_sshkey:
+    type: oci:core:ssh:publickey
+    title: "SSH Key for Hosts"
+    required: true
+    visible:
+      and:
+        - app_change_ssh 
+        - js_create_host
 
 # "Oracle Database System Details"
 
