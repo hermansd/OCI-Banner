@@ -126,8 +126,8 @@ variables:
       compartmentId: ${target_compartment_ocid}
     required: true
     visible: 
-      and:
-        - multiple_ads
+      eq:
+        - app_hmultiple_ads
   
   app_multiple_fds:
     type: boolean
@@ -144,8 +144,8 @@ variables:
       availabilityDomainName: ${target_ad1}
     required: true
     visible: 
-      and:
-        - random_fds
+      eq:
+        - app_multiple_fds
 
   app_target_fd2:
     type: oci:identity:faultdomain:name	
@@ -156,8 +156,8 @@ variables:
       availabilityDomainName: ${target_ad1}
     required: false
     visible: 
-      and:
-        - random_fds
+      eq:
+        - app_multiplerandom_fds
 
   app_shape_name:
     type: oci:core:instanceshape:name
@@ -175,10 +175,10 @@ variables:
     visible: 
       or:
         - eq:
-          - ${shape_name}
+          - $app_hape_name
           - "VM.Standard.E4.Flex"
         - eq:
-          - ${shape_name}
+          - app_shape_name
           - "VM.Standard.E3.Flex"
 
   app_host_memmory:
@@ -188,10 +188,10 @@ variables:
     visible: 
       or:
         - eq:
-          - ${shape_name}
+          - app_shape_name
           - "VM.Standard.E4.Flex"
         - eq:
-          - ${shape_name}
+          - app_shape_name
           - "VM.Standard.E3.Flex"
 
   app_os_image_ocid:
