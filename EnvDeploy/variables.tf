@@ -54,9 +54,7 @@ variable "js_host_memmory" {
   default = 16
 }
 variable "js_os_image_ocid" {}
-variable "js_vcn_compartment_ocid" {
-  default = var.target_compartment_ocid
-}
+variable "js_vcn_compartment_ocid" {}
 variable "js_vcn_ocid" {}
 variable "js_subnet_compartment_ocid" {}
 variable "js_subnet_ocid" {}
