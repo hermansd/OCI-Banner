@@ -238,7 +238,7 @@ variables:
         - eq:
           - app_shape_name
           - "VM.Standard.E4.Flex"
-          and:
+        and:
           - app_create_host
         - eq:
           - app_shape_name
