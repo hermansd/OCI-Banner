@@ -406,7 +406,6 @@ variables:
 
 
   db_system_2node_cluster_name:
-    visible:
     title: "Cluster Name"
     type: string
     default: "emcc-cls"
