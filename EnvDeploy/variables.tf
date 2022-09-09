@@ -40,14 +40,30 @@ variable "app_assign_public_ip" {}
 variable "app_sshkey" {}
 
 #Load Balancers
-variable "lb_create_lb" {
-  default = false
-}
+variable "lb_create_lb" { default = false }
 
 #Job Submition Server
 variable "js_create_host" {
   default = false
+  }
+variable "js_shape_name"     {}
+variable "js_host_ocpus" {
+  default = 1
 }
+variable "js_host_memmory" {
+  default = 16
+}
+variable "js_os_image_ocid" {}
+variable "js_vcn_compartment_ocid" {
+  default = var.target_compartment_ocid
+}
+variable "js_vcn_ocid" {}
+variable "js_subnet_compartment_ocid" {}
+variable "js_subnet_ocid" {}
+variable "js_assign_public_ip" {}
+variable "js_change_ssh" {}
+variable "js_sshkey" {}
+
 #Database Server
 variable "db_create_database" {
   default = false
