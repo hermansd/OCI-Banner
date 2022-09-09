@@ -38,6 +38,9 @@ variable "app_vcn_ocid" {}
 variable "app_subnet_compartment_ocid" {}
 variable "app_subnet_ocid" {}
 variable "app_assign_public_ip" {}
+variable "app_change_ssh" {
+  default = false  
+}
 variable "app_sshkey" {
   default = ""
 }
