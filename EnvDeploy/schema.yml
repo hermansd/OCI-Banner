@@ -116,6 +116,7 @@ variables:
     type: oci:identity:compartment:id
     title: "Deplomant Campartment"
     description: "The enclosing compartment where Landing Zone compartments will be created. If not provided and \"Use enclosing compartment?\" is checked, an enclosing compartment is created under the root compartment."
+    default: compartment_ocid
     required: true 
 
   target_ad1:
@@ -344,7 +345,7 @@ variables:
   js_os_image_ocid:
     type: oci:core:image:id
     dependsOn:
-      compartmentId: ${target_compartment_ocid}
+      compartmentId: target_compartment_ocid
       operatingSystem: "Oracle Linux"
     title: "Choose and OS Image"
     description: "the OS that will be installed in the host"
