@@ -3,9 +3,11 @@
 
 # Environment
 variable "service_label" {}
-
 variable "target_compartment_ocid" {}
 variable "target_ad1" {}
+
+
+#Application Servers
 variable "app_target_ad2" {
   default = 0 
 }
@@ -31,7 +33,13 @@ variable "app_subnet_ocid" {}
 variable "app_assign_public_ip" {}
 variable "app_sshkey" {}
 
+#Load Balancers
 
+#Job Submition Server
+
+#Database Server
+
+#General 
 variable "tenancy_ocid" {}
 variable "user_ocid" {
   default = ""
