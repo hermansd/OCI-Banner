@@ -27,7 +27,9 @@ variable "app_target_fd2" {
 variable "app_multiple_fds" {
   default = false
 }
-variable "app_host_count" {}
+variable "app_host_count" {
+  default = 1
+}
 variable "app_shape_name" {
   default = "VM.Standard.E4.Flex"
 }
