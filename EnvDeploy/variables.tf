@@ -9,7 +9,7 @@ variable "sshkey" {}
 
 
 #Application Servers
-variable "js_create_host" {
+variable "app_create_host" {
   default = false
 }
 variable "app_target_ad2" {
