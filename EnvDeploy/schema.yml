@@ -277,7 +277,7 @@ variables:
     type: oci:core:ssh:publickey
     title: "SSH Key for Hosts"
     required: true
-    visable:
+    visible:
       and:
         - app_change_ssh 
 
