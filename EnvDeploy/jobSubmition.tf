@@ -2,7 +2,7 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
 resource "oci_core_instance" "jobSubServer" {
-  count               = 0 # var.js_create_host ? 1:0
+  count               = var.js_create_host ? 1:0
   availability_domain = var.target_ad1
   compartment_id      = var.target_compartment_ocid
   display_name        = "${var.service_label}js1"
