@@ -86,3 +86,6 @@ variable "private_key_password" {
   default = ""
 }
 variable "region" {}
+variable "fault_doamin" {
+  default = ["FAULT-DOMAIN-1", "FAULT-DOMAIN-2", "FAULT-DOMAIN-3"]
+}
