@@ -453,6 +453,8 @@ variables:
 
   db_system_ssh_public_key:
     visible:
+      eq:
+        - db_create_databse
       and:
         - not:
           - use_same_ssh_public_key
@@ -464,9 +466,6 @@ variables:
     description: "Use the corresponding private key to access the DB system compute instances"
     pattern: "ssh[-].*"
     type: string
-    visible: 
-      eq:
-        - db_create_databse
 
   #
   # DB System - Dataguard section
