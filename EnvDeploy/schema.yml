@@ -176,7 +176,7 @@ variables:
     visible: 
       or:
         - eq:
-          - app_hape_name
+          - app_shape_name
           - "VM.Standard.E4.Flex"
         - eq:
           - app_shape_name
