@@ -5,7 +5,7 @@ locals{
   fault_domain = ["FAULT-DOMAIN-1", "FAULT-DOMAIN-2", "FAULT-DOMAIN-3"]
   host_count =       var.app_host_count
   multiple_ads =     var.app_multiple_ads
-  target_ad1 =       var.app_target_ad1
+  target_ad1 =       var.target_ad1
   target_ad2 =       var.app_target_ad2
   multiple_fds =     var.app_multiple_fds
   target_fd1 =       var.app_target_fd1
