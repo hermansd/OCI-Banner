@@ -35,6 +35,7 @@ variableGroups:
       - "app_vcn_ocid"
       - "app_subnet_compartment_ocid"
       - "app_subnet_ocid"
+      = "app_assign_public_ip"
       - "app_sshkey"
 
   - title: "Jobsub Server"
@@ -175,7 +176,7 @@ variables:
     visible: 
       or:
         - eq:
-          - $app_hape_name
+          - app_hape_name
           - "VM.Standard.E4.Flex"
         - eq:
           - app_shape_name
