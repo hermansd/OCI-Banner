@@ -158,7 +158,7 @@ variables:
     required: false
     visible: 
       and:
-        - app_multiplerandom_fds
+        - app_multiple_fds
 
   app_shape_name:
     type: oci:core:instanceshape:name
