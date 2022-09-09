@@ -127,7 +127,7 @@ variables:
   
   random_fds:
     type: boolean
-    title: "Deploy to random Fault Domains"
+    title: "Choose Fault Domains to deploy to?"
     required: false
     default: false
 
@@ -149,7 +149,7 @@ variables:
     description: "What Fault Domain to deploy hosts in"
     dependsOn:
       compartmentId: ${target_compartment_ocid}
-      availabilityDomainName: ${target_ad2}
+      availabilityDomainName: ${target_ad1}
     required: false
     visible: 
       and:
