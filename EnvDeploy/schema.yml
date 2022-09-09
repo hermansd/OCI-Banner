@@ -312,30 +312,30 @@ variables:
     title: "Number of Cores"
     default: 1
     visible: 
-      and:
-        - js_create_host
       or:
         - eq:
           - js_shape_name
           - "VM.Standard.E4.Flex"
+          - js_create_host
         - eq:
           - js_shape_name
           - "VM.Standard.E3.Flex"
+          - js_create_host
 
   js_host_memmory:
     type: number
     title: "Amount of Memmory for Host"
     default: 16
     visible: 
-      and:
-        - js_create_host
       or:
         - eq:
           - js_shape_name
           - "VM.Standard.E4.Flex"
+          - js_create_host
         - eq:
           - js_shape_name
           - "VM.Standard.E3.Flex"
+          - js_create_host
       
   js_os_image_ocid:
     type: oci:core:image:id
