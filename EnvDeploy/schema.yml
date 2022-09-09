@@ -263,35 +263,23 @@ variables:
     required: false
 
   db_compartment_ocid:
-    visible:
-      not:
-        - eq:
-          - em_instance_size
-          - "Simple"
     type: oci:identity:compartment:id
     title: Database Compartment
     description: The compartment in which to create Oracle Database resources.
     default: compartment_ocid
     required: true
     visible: 
-      and:
+      eq:
         - db_create_databse
 
   db_system_name:
-    visible:
-      and:
-        - not:
-          - eq:
-            - em_instance_size
-            - "Simple"
-        - is_advanced_installation
     title: DB System Name*
     description: Name of the database system.
     default: BannerProd
     type: string
     required: true
     visible: 
-      and:
+      eq:
         - db_create_databse
 
   db_sys_password:
@@ -303,11 +291,10 @@ variables:
     default: ""
     confirmation: true
     visible: 
-      and:
+      eq:
         - db_create_databse
 
   dbsnmp_password:
-    visible: is_advanced_installation
     type: password
     required: true
     title: DBSNMP User Database Password
@@ -316,17 +303,10 @@ variables:
     default: ""
     confirmation: true
     visible: 
-      and:
+      eq:
         - db_create_databse
 
   db_hostname_prefix:
-    visible:
-      and:
-        - not:
-          - eq:
-            - em_instance_size
-            - "Simple"
-        - is_advanced_installation
     title: Database Hostname Prefix*
     description: The database hostname prefix must start with letter, should be between 1 and 30 characters in length and contain only letters, numbers and hyphen (-) characters.
     type: string
@@ -334,17 +314,10 @@ variables:
     required: true
     pattern: "^[a-zA-Z][a-zA-Z0-9-]{1,29}$"
     visible: 
-      and:
+      eq:
         - db_create_databse
 
   db_system_db_name:
-    visible:
-     and:
-       - not:
-         - eq:
-           - em_instance_size
-           - "Simple"
-       - is_advanced_installation
     title: "Database Name"
     type: string
     default: "BannerProd"
@@ -352,16 +325,11 @@ variables:
     pattern: "^[a-zA-Z][a-zA-Z0-9]{1,7}$"
     description: "Name of the Database. Must start with letter, can have a maximum of 8 characters and only alphanumeric characters"
     visible: 
-      and:
+      eq:
         - db_create_databse
 
   # TODO: Must exclude 2.1 shape - unsupported for 2-node RAC
   db_system_license:
-    visible:
-      not:
-        - eq:
-          - em_instance_size
-          - "Simple"
     type: enum
     title: "Type of license for DB System"
     enum:
@@ -370,14 +338,10 @@ variables:
     required: true
     default: "LICENSE_INCLUDED"
     visible: 
-      and:
+      eq:
         - db_create_databse
 
   db_system_small_instance_shape:
-    visible:
-      eq:
-        - em_instance_size
-        - "Small"
     type: oci:core:instanceshape:name
     title: DB System Instance Shape
     description: The shape for the two DB System instances. Supported VM shapes for "Small" size are VM.Standard2.2, VM.Standard2.4, VM.Standard2.8, VM.Standard2.16, VM.Standard2.24
@@ -386,14 +350,10 @@ variables:
     dependsOn:
       compartmentId: ${db_compartment_ocid}
     visible: 
-      and:
+      eq:
         - db_create_databse  
 
   db_system_medium_instance_shape:
-    visible:
-      eq:
-        - em_instance_size
-        - "Medium"
     type: oci:core:instanceshape:name
     title: DB System Instance Shape
     description: The shape for the two DB System instances. Supported VM shapes for "Medium" size are VM.Standard2.4, VM.Standard2.8, VM.Standard2.16, VM.Standard2.24
@@ -402,15 +362,11 @@ variables:
     dependsOn:
       compartmentId: ${db_compartment_ocid}
     visible: 
-      and:
+      eq:
         - db_create_databse
 
 
   db_system_large_instance_shape:
-    visible:
-      eq:
-        - em_instance_size
-        - "Large"
     type: oci:core:instanceshape:name
     title: DB System Instance Shape
     description: The shape for the two DB System instances. Supported VM shapes for "Large" size are VM.Standard2.8, VM.Standard2.16, VM.Standard2.24
@@ -419,7 +375,7 @@ variables:
     dependsOn:
       compartmentId: ${db_compartment_ocid}
     visible: 
-      and:
+      eq:
         - db_create_databse
 
 
@@ -451,12 +407,6 @@ variables:
 
   db_system_2node_cluster_name:
     visible:
-      and:
-        - not:
-          - eq:
-            - em_instance_size
-            - "Simple"
-        - is_advanced_installation
     title: "Cluster Name"
     type: string
     default: "emcc-cls"
@@ -464,16 +414,11 @@ variables:
     pattern: "^[a-zA-Z][a-zA-Z0-9-]{1,10}$"
     description: "The name of the database cluster must start with letter, cannot be longer than 11 characters and can contain only letters, numbers and hyphen (-)."
     visible: 
-      and:
+      eq:
         - db_create_databse
 
   # TODO: Must correspond to EM Size settings for min values
   db_system_storage_size:
-    visible:
-      not:
-        - eq:
-          - em_instance_size
-          - "Simple"
     title: "Available storage (GB)*"
     description: "The recommended storage size:Small 256GB, Medium 512 GB, Large 1024 GB and X-Large 2048GB. The maximum storage size is 40960 GB."
     type: enum
@@ -503,6 +448,9 @@ variables:
     - "40960"
     default: "512"
     required: true
+    visible: 
+      eq:
+        - db_create_databse
 
   db_system_ssh_public_key:
     visible:
@@ -518,25 +466,20 @@ variables:
     pattern: "ssh[-].*"
     type: string
     visible: 
-      and:
+      eq:
         - db_create_databse
 
   #
   # DB System - Dataguard section
   #
   is_db_system_dataguard_enabled:
-    visible:
-      not:
-        - eq:
-          - em_instance_size
-          - "Simple"
     title: "Enable Data Guard for Banner Database"
     type: boolean
     default: false
     required: true
     description: Enable Data Guard support for management repository
     visible: 
-      and:
+      eq:
         - db_create_databse
 
   db_system_dg_name:
@@ -547,6 +490,7 @@ variables:
             - eq:
               - em_instance_size
               - "Simple"
+              - db_create_databse
           - is_db_system_dataguard_enabled
         - is_advanced_installation
     title: Data Guard DB System Name*
@@ -554,9 +498,6 @@ variables:
     default: EM-OMR-DG
     type: string
     required: true
-    visible: 
-      and:
-        - db_create_databse
 
  # db_system_dg_availability_domain:
  #   visible:
@@ -587,9 +528,7 @@ variables:
     dependsOn:
       compartmentId: ${db_compartment_ocid}
     default: "VM.Standard2.4"
-    visible: 
-      and:
-        - db_create_databse
+
 
   db_system_dg_medium_instance_shape:
     visible:
@@ -605,9 +544,7 @@ variables:
     dependsOn:
       compartmentId: ${db_compartment_ocid}
     default: "VM.Standard2.8"
-    visible: 
-      and:
-        - db_create_databse
+
 
   db_system_dg_large_instance_shape:
     visible:
@@ -623,9 +560,7 @@ variables:
     dependsOn:
       compartmentId: ${compartment_ocid}
     default: "VM.Standard2.16"
-    visible: 
-      and:
-        - db_create_databse
+
 
   db_system_dg_hostname_prefix:
     visible:
@@ -643,6 +578,3 @@ variables:
     default: "emdbdghost"
     required: true
     pattern: "^[a-zA-Z][a-zA-Z0-9-]{1,29}$"
-    visible: 
-      and:
-        - db_create_databse
