@@ -40,6 +40,7 @@ variableGroups:
   - title: "Database Server(s)"
     variables:
       #- db_create_dataguard  (support in later release)
+      - db_create_databse
       - db_compartment_ocid
       - db_system_name
       - db_sys_password
@@ -255,6 +256,12 @@ variables:
 #
   # "Oracle Database System Details"
   #
+
+  db_create_databse:
+    type: boolean
+    title: "Create Databse for Banenr?"
+    required: false
+
   db_compartment_ocid:
     visible:
       not:
@@ -266,6 +273,9 @@ variables:
     description: The compartment in which to create Oracle Database resources.
     default: compartment_ocid
     required: true
+    visible: 
+      and:
+        - db_create_databse
 
   db_system_name:
     visible:
@@ -280,6 +290,9 @@ variables:
     default: BannerProd
     type: string
     required: true
+    visible: 
+      and:
+        - db_create_databse
 
   db_sys_password:
     type: password
@@ -289,6 +302,9 @@ variables:
     description: "The password will be used for the SYS, SYSTEM, and PDB admin accounts and for the TDE wallet. It must be 9 to 30 characters and contain at least 2 uppercase, 2 lowercase, 2 special, and 2 numeric characters.The special characters must be _ , # or -"
     default: ""
     confirmation: true
+    visible: 
+      and:
+        - db_create_databse
 
   dbsnmp_password:
     visible: is_advanced_installation
@@ -299,6 +315,9 @@ variables:
     description: "The password will be used for the DBSNMP user required for DB discovery. It must be 9 to 30 characters and contain at least 2 uppercase, 2 lowercase, 2 special, and 2 numeric characters.The special characters must be _ , # or -"
     default: ""
     confirmation: true
+    visible: 
+      and:
+        - db_create_databse
 
   db_hostname_prefix:
     visible:
@@ -314,6 +333,9 @@ variables:
     default: "bandbp"
     required: true
     pattern: "^[a-zA-Z][a-zA-Z0-9-]{1,29}$"
+    visible: 
+      and:
+        - db_create_databse
 
   db_system_db_name:
     visible:
@@ -329,6 +351,9 @@ variables:
     required: true
     pattern: "^[a-zA-Z][a-zA-Z0-9]{1,7}$"
     description: "Name of the Database. Must start with letter, can have a maximum of 8 characters and only alphanumeric characters"
+    visible: 
+      and:
+        - db_create_databse
 
   # TODO: Must exclude 2.1 shape - unsupported for 2-node RAC
   db_system_license:
@@ -344,6 +369,9 @@ variables:
     - "BRING_YOUR_OWN_LICENSE"
     required: true
     default: "LICENSE_INCLUDED"
+    visible: 
+      and:
+        - db_create_databse
 
   db_system_small_instance_shape:
     visible:
@@ -357,6 +385,9 @@ variables:
     default: "VM.Standard2.4"
     dependsOn:
       compartmentId: ${db_compartment_ocid}
+    visible: 
+      and:
+        - db_create_databse  
 
   db_system_medium_instance_shape:
     visible:
@@ -370,6 +401,9 @@ variables:
     default: "VM.Standard2.8"
     dependsOn:
       compartmentId: ${db_compartment_ocid}
+    visible: 
+      and:
+        - db_create_databse
 
 
   db_system_large_instance_shape:
@@ -384,6 +418,9 @@ variables:
     default: "VM.Standard2.16"
     dependsOn:
       compartmentId: ${db_compartment_ocid}
+    visible: 
+      and:
+        - db_create_databse
 
 
   # db_system_2node_edition:
@@ -426,6 +463,9 @@ variables:
     required: true
     pattern: "^[a-zA-Z][a-zA-Z0-9-]{1,10}$"
     description: "The name of the database cluster must start with letter, cannot be longer than 11 characters and can contain only letters, numbers and hyphen (-)."
+    visible: 
+      and:
+        - db_create_databse
 
   # TODO: Must correspond to EM Size settings for min values
   db_system_storage_size:
@@ -477,6 +517,9 @@ variables:
     description: "Use the corresponding private key to access the DB system compute instances"
     pattern: "ssh[-].*"
     type: string
+    visible: 
+      and:
+        - db_create_databse
 
   #
   # DB System - Dataguard section
@@ -492,6 +535,9 @@ variables:
     default: false
     required: true
     description: Enable Data Guard support for management repository
+    visible: 
+      and:
+        - db_create_databse
 
   db_system_dg_name:
     visible:
@@ -508,6 +554,9 @@ variables:
     default: EM-OMR-DG
     type: string
     required: true
+    visible: 
+      and:
+        - db_create_databse
 
  # db_system_dg_availability_domain:
  #   visible:
@@ -538,6 +587,9 @@ variables:
     dependsOn:
       compartmentId: ${db_compartment_ocid}
     default: "VM.Standard2.4"
+    visible: 
+      and:
+        - db_create_databse
 
   db_system_dg_medium_instance_shape:
     visible:
@@ -553,6 +605,9 @@ variables:
     dependsOn:
       compartmentId: ${db_compartment_ocid}
     default: "VM.Standard2.8"
+    visible: 
+      and:
+        - db_create_databse
 
   db_system_dg_large_instance_shape:
     visible:
@@ -568,6 +623,9 @@ variables:
     dependsOn:
       compartmentId: ${compartment_ocid}
     default: "VM.Standard2.16"
+    visible: 
+      and:
+        - db_create_databse
 
   db_system_dg_hostname_prefix:
     visible:
@@ -585,3 +643,6 @@ variables:
     default: "emdbdghost"
     required: true
     pattern: "^[a-zA-Z][a-zA-Z0-9-]{1,29}$"
+    visible: 
+      and:
+        - db_create_databse
