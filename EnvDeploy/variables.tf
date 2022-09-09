@@ -70,7 +70,9 @@ variable "js_vcn_compartment_ocid" {
 variable "js_vcn_ocid" {
   default = "ocid1.vcn.oc1.phx.a12344"
 }
-variable "js_subnet_compartment_ocid" {}
+variable "js_subnet_compartment_ocid" {
+    default = "ocid1.compartment.oc1..12314"
+}
 variable "js_subnet_ocid" {
   default = "ocid1.subnet.oc1.000000"
 }
