@@ -37,7 +37,9 @@ variable "app_vcn_ocid" {}
 variable "app_subnet_compartment_ocid" {}
 variable "app_subnet_ocid" {}
 variable "app_assign_public_ip" {}
-variable "app_sshkey" {}
+variable "app_sshkey" {
+  default = ""
+}
 
 #Load Balancers
 variable "lb_create_lb" { default = false }
@@ -60,7 +62,9 @@ variable "js_subnet_compartment_ocid" {}
 variable "js_subnet_ocid" {}
 variable "js_assign_public_ip" {}
 variable "js_change_ssh" {}
-variable "js_sshkey" {}
+variable "js_sshkey" {
+  default = ""
+}
 
 #Database Server
 variable "db_create_database" {
