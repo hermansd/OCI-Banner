@@ -40,10 +40,18 @@ variable "app_assign_public_ip" {}
 variable "app_sshkey" {}
 
 #Load Balancers
+variable "lb_create_lb" {
+  default = false
+}
 
 #Job Submition Server
-
+variable "js_create_host" {
+  default = false
+}
 #Database Server
+variable "db_create_database" {
+  default = false
+}
 
 #General 
 variable "tenancy_ocid" {}

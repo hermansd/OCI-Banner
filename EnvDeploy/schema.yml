@@ -18,6 +18,7 @@ variableGroups:
       - "target_compartment_ocid"
       - "target_ad1"
       - "service_label"
+      - "sshkey"
  
   - title: "Applicaiton Servers"
     variables:
@@ -36,10 +37,26 @@ variableGroups:
       - "app_subnet_compartment_ocid"
       - "app_subnet_ocid"
       - "app_assign_public_ip"
+      - "app_change_ssh"
       - "app_sshkey"
 
+  - title: "Load Balancers"
+    variables:
+      - "lb_create_lb"
+  
   - title: "Jobsub Server"
     variables:
+      - "js_create_host"
+      - "js_shape_name"    
+      - "js_host_ocpus"
+      - "js_host_memmory"
+      - "js_os_image_ocid"
+      - "js_vcn_compartment_ocid"
+      - "js_vcn_ocid"
+      - "js_subnet_compartment_ocid"
+      - "js_subnet_ocid"
+      - "js_assign_public_ip"
+      - "app_sshkey"
 
   - title: "Database Server(s)"
     variables:
@@ -108,6 +125,12 @@ variables:
       compartmentId: ${target_compartment_ocid}
     required: true 
 
+  sshkey:
+    type: oci:core:ssh:publickey
+    title: "SSH Key for all Hosts"
+    required: true 
+
+#Applicaiton Servers
   app_host_count:
     type: number
     title: "Number of Applicaiton Servers to create"
@@ -242,30 +265,37 @@ variables:
     title: "Assign public IP address to hosts."
     required: false
     default: false
+  
+  app_change_ssh:
+    type: boolean
+    title: "Use diffrent ssh key for application servers."
+    required: false
+    default: false
 
   app_sshkey:
     type: oci:core:ssh:publickey
     title: "SSH Key for Hosts"
-    required: true 
+    required: true
+    visable:
+      and:
+        - app_change_ssh 
 
-  
-# Variables not required to display to user
-  user_ocid:
-    type: string
+# Load Balancers
 
-  fingerprint:
-    type: string
+  lb_create_lb:
+    type: boolean
+    title: "Create Load Balancer(s) for Applicaiton Servers?"
+    required: false
 
-  private_key_path:
-    type: string
+# Job Submition Server
 
-  private_key_password:
-    type: password
+  js_create_host:
+    type: boolean
+    title: "Create Job Submition server for Banenr?"
+    required: false
 
 
-#
-  # "Oracle Database System Details"
-  #
+# "Oracle Database System Details"
 
   db_create_databse:
     type: boolean
@@ -586,3 +616,18 @@ variables:
     default: "emdbdghost"
     required: true
     pattern: "^[a-zA-Z][a-zA-Z0-9-]{1,29}$"
+
+
+
+# Variables not required to display to user
+  user_ocid:
+    type: string
+
+  fingerprint:
+    type: string
+
+  private_key_path:
+    type: string
+
+  private_key_password:
+    type: password
