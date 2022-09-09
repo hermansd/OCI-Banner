@@ -4,7 +4,7 @@
 resource "oci_core_instance" "jobSubServer" {
   availability_domain = var.target_ad1
   compartment_id      = var.target_compartment_ocid
-  display_name        = "${var.service_label}js${count.index}"
+  display_name        = "${var.service_label}js1"
   shape               = var.js_shape_name
 
   shape_config {
