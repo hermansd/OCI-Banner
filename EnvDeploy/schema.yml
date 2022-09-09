@@ -168,7 +168,7 @@ variables:
     default: "VM.Standard.E4.Flex"
     required: true 
 
- app_host_ocpus:
+  app_host_ocpus:
     type: number
     title: "Number of Cores"
     default: 1
