@@ -14,9 +14,9 @@ resource "oci_core_instance" "jobSubServer" {
 
   create_vnic_details {
     subnet_id        = var.js_subnet_ocid
-    display_name     = "${var.service_label}js${count.index}"
+    display_name     = "${var.service_label}js1"
     assign_public_ip = var.js_assign_public_ip
-    hostname_label   = "${var.service_label}js${count.index}"
+    hostname_label   = "${var.service_label}js1"
   }
 
   source_details {
