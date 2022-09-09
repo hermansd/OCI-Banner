@@ -180,7 +180,7 @@ variables:
     dependsOn:
       compartmentId: ${target_compartment_ocid}
       availabilityDomainName: ${target_ad1}
-    required: false
+    required: true
     visible: 
       and:
         - app_multiple_fds
@@ -235,12 +235,13 @@ variables:
     type: oci:identity:compartment:id
     title: "Existing enclosing compartment"
     description: "The enclosing compartment where Landing Zone compartments will be created. If not provided and \"Use enclosing compartment?\" is checked, an enclosing compartment is created under the root compartment."
+    default: compartment_ocid
     required: true 
 
   app_vcn_ocid:
     type: oci:core:vcn:id
     dependsOn:
-      compartmentId: ${vcn_compartment_ocid}
+      compartmentId: vcn_compartment_ocid
     required: true
     title: "Select VCN For deployment"
 #    description: "CIDR blocks for the Exadata VCNs in CIDR notation. Be mindful about Exadata \"Requirements for IP Address Space\" in <a href=\"https://docs.oracle.com/en-us/iaas/Content/Database/Tasks/exanetwork.htm\">OCI documentation</a>. (Type the name and hit enter to enter multiple values, up to a maximum of 9)"
@@ -250,17 +251,18 @@ variables:
     type: oci:identity:compartment:id
     title: "Existing enclosing compartment"
     description: "The enclosing compartment where Landing Zone compartments will be created. If not provided and \"Use enclosing compartment?\" is checked, an enclosing compartment is created under the root compartment."
+    default: compartment_ocid
     required: true 
 
   app_subnet_ocid:
     type: oci:core:subnet:id
     dependsOn:
-      compartmentId: ${subnet_compartment_ocid}
-      vcnId: ${vcn_ocid}
+      compartmentId: subnet_compartment_ocid
+      vcnId: app_vcn_ocid
     required: true
     title: "Select Subnet For deployment"
 #    description: "CIDR blocks for the Exadata VCNs in CIDR notation. Be mindful about Exadata \"Requirements for IP Address Space\" in <a href=\"https://docs.oracle.com/en-us/iaas/Content/Database/Tasks/exanetwork.htm\">OCI documentation</a>. (Type the name and hit enter to enter multiple values, up to a maximum of 9)"
-    default: ${vcn_compartment_ocid}
+    default: compartment_ocid
   
   app_assign_public_ip:
     type: boolean
@@ -361,7 +363,7 @@ variables:
     title: "Existing enclosing compartment"
     description: "The enclosing compartment where Landing Zone compartments will be created. If not provided and \"Use enclosing compartment?\" is checked, an enclosing compartment is created under the root compartment."
     required: true 
-    default: ${target_compartment_ocid}
+    default: compartment_ocid
     visible:
       and:
         - js_create_host 
@@ -383,6 +385,7 @@ variables:
     title: "Existing enclosing compartment"
     description: "The enclosing compartment where Landing Zone compartments will be created. If not provided and \"Use enclosing compartment?\" is checked, an enclosing compartment is created under the root compartment."
     required: true 
+    default: compartment_ocid
     visible:
       and:
         - js_create_host 
@@ -424,7 +427,7 @@ variables:
     required: true
     visible:
       and:
-        - app_change_ssh 
+        - js_change_ssh 
         - js_create_host
 
 # "Oracle Database System Details"
