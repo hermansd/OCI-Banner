@@ -9,6 +9,9 @@ variable "sshkey" {}
 
 
 #Application Servers
+variable "js_create_host" {
+  default = false
+}
 variable "app_target_ad2" {
   default = 0 
 }
@@ -25,19 +28,33 @@ variable "app_multiple_fds" {
   default = false
 }
 variable "app_host_count" {}
-variable "app_shape_name" {}
+variable "app_shape_name" {
+  default = "VM.Standard.E4.Flex"
+}
 variable "app_host_ocpus" {
   default = 1
 }
 variable "app_host_memmory" {
   default = 16
 }
-variable "app_os_image_ocid" {}
-variable "app_vcn_compartment_ocid" {}
-variable "app_vcn_ocid" {}
-variable "app_subnet_compartment_ocid" {}
-variable "app_subnet_ocid" {}
-variable "app_assign_public_ip" {}
+variable "app_os_image_ocid" {
+  default = "OS TBD"
+}
+variable "app_vcn_compartment_ocid" {
+  default = "ocid1.compartment.oc1..12314"
+}
+variable "app_vcn_ocid" {
+  default = "ocid1.vcn.oc1.phx.a12344"
+}
+variable "app_subnet_compartment_ocid" {
+  default = "ocid1.vcn.oc1.phx.a12344"
+}
+variable "app_subnet_ocid" {
+  default = "ocid1.compartment.oc1..12314"
+}
+variable "app_assign_public_ip" {
+  default = false
+}
 variable "app_change_ssh" {
   default = false  
 }
@@ -46,12 +63,14 @@ variable "app_sshkey" {
 }
 
 #Load Balancers
-variable "lb_create_lb" { default = false }
+variable "lb_create_lb" { 
+  default = false 
+}
 
 #Job Submition Server
 variable "js_create_host" {
   default = false
-  }
+}
 variable "js_shape_name"     {
   default = "VM.Standard.E4.Flex"
 }

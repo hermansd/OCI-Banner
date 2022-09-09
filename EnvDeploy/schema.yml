@@ -133,16 +133,28 @@ variables:
     required: true 
 
 #Applicaiton Servers
+
+  app_create_host:
+    type: boolean
+    title: "Create Applicaiton Server(s) for Banenr?"
+    required: false
+
   app_host_count:
     type: number
     title: "Number of Applicaiton Servers to create"
     default: 1
+    visible: 
+      and:
+        - app_create_host
 
   app_multiple_ads:
     type: boolean
     title: "Deploy to multiple Availability Domains"
     required: false
     default: false
+    visible: 
+      and:
+        - app_create_host
 
   app_target_ad2:
     type: oci:identity:availabilitydomain:name
@@ -154,6 +166,7 @@ variables:
     visible: 
       and:
         - app_multiple_ads
+        - app_create_host
   
   app_multiple_fds:
     type: boolean
@@ -171,7 +184,8 @@ variables:
     required: true
     visible: 
       and:
-        - app_multiple_fds
+        - app_multiple_fds 
+        - app_create_host
 
   app_target_fd2:
     type: oci:identity:faultdomain:name	
@@ -184,6 +198,7 @@ variables:
     visible: 
       and:
         - app_multiple_fds
+        - app_create_host
 
   app_shape_name:
     type: oci:core:instanceshape:name
@@ -193,6 +208,9 @@ variables:
     description: "the OS that will be installed in the host"
     default: "VM.Standard.E4.Flex"
     required: true 
+    visible: 
+      and:
+        - app_create_host
 
   app_host_ocpus:
     type: number
@@ -203,9 +221,13 @@ variables:
         - eq:
           - app_shape_name
           - "VM.Standard.E4.Flex"
+        and:
+          - app_create_host
         - eq:
           - app_shape_name
           - "VM.Standard.E3.Flex"
+        and:
+          - app_create_host
 
   app_host_memmory:
     type: number
@@ -216,9 +238,13 @@ variables:
         - eq:
           - app_shape_name
           - "VM.Standard.E4.Flex"
+          and:
+          - app_create_host
         - eq:
           - app_shape_name
           - "VM.Standard.E3.Flex"
+        and:
+          - app_create_host
 
   app_os_image_ocid:
     type: oci:core:image:id
@@ -229,6 +255,9 @@ variables:
     description: "the OS that will be installed in the host"
     default: "Oracle-Linux-8.6*"
     required: true 
+    visible: 
+      and:
+        - app_create_host
 
 
   app_vcn_compartment_ocid:
@@ -237,6 +266,9 @@ variables:
     description: "The enclosing compartment where Landing Zone compartments will be created. If not provided and \"Use enclosing compartment?\" is checked, an enclosing compartment is created under the root compartment."
     default: compartment_ocid
     required: true 
+    visible: 
+      and:
+        - app_create_host
 
   app_vcn_ocid:
     type: oci:core:vcn:id
@@ -246,6 +278,9 @@ variables:
     title: "Select VCN For deployment"
 #    description: "CIDR blocks for the Exadata VCNs in CIDR notation. Be mindful about Exadata \"Requirements for IP Address Space\" in <a href=\"https://docs.oracle.com/en-us/iaas/Content/Database/Tasks/exanetwork.htm\">OCI documentation</a>. (Type the name and hit enter to enter multiple values, up to a maximum of 9)"
     default: false
+    visible: 
+      and:
+        - app_create_host
 
   app_subnet_compartment_ocid:
     type: oci:identity:compartment:id
@@ -253,6 +288,9 @@ variables:
     description: "The enclosing compartment where Landing Zone compartments will be created. If not provided and \"Use enclosing compartment?\" is checked, an enclosing compartment is created under the root compartment."
     default: compartment_ocid
     required: true 
+    visible: 
+      and:
+        - app_create_host
 
   app_subnet_ocid:
     type: oci:core:subnet:id
@@ -263,18 +301,27 @@ variables:
     title: "Select Subnet For deployment"
 #    description: "CIDR blocks for the Exadata VCNs in CIDR notation. Be mindful about Exadata \"Requirements for IP Address Space\" in <a href=\"https://docs.oracle.com/en-us/iaas/Content/Database/Tasks/exanetwork.htm\">OCI documentation</a>. (Type the name and hit enter to enter multiple values, up to a maximum of 9)"
     default: compartment_ocid
+    visible: 
+      and:
+        - app_create_host
   
   app_assign_public_ip:
     type: boolean
     title: "Assign public IP address to hosts."
     required: false
     default: false
+    visible: 
+      and:
+        - app_create_host
   
   app_change_ssh:
     type: boolean
     title: "Use diffrent ssh key for application servers."
     required: false
     default: false
+    visible: 
+      and:
+        - app_create_host
 
   app_sshkey:
     type: oci:core:ssh:publickey
@@ -283,6 +330,7 @@ variables:
     visible:
       and:
         - app_change_ssh 
+        - app_create_host
 
 # Load Balancers
 
