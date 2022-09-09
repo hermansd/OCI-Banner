@@ -127,7 +127,7 @@ variables:
       compartmentId: ${target_compartment_ocid}
     required: true
     visible: 
-      eq:
+      and:
         - app_multiple_ads
   
   app_multiple_fds:
@@ -145,7 +145,7 @@ variables:
       availabilityDomainName: ${target_ad1}
     required: true
     visible: 
-      eq:
+      and:
         - app_multiple_fds
 
   app_target_fd2:
@@ -157,7 +157,7 @@ variables:
       availabilityDomainName: ${target_ad1}
     required: false
     visible: 
-      eq:
+      and:
         - app_multiplerandom_fds
 
   app_shape_name:
