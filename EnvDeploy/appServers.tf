@@ -5,7 +5,7 @@
 resource "oci_core_instance" "appServer" {
   count               = var.app_host_count
   availability_domain = var.app_multiple_ads ? (contains(range(1,var.app_host_count , 2), count.index) ? var.app_target_ad2 : var.target_ad1) : var.target_ad1
-  fault_domain        = var.app_multiple_fds ? ((contains(range(1,var.app_host_count , 2), count.index)) ? var.app_target_fd2 : var.app_target_fd1) : element(var.fault_domain,count.index)
+  fault_domain        = var.app_multiple_fds ? ((contains(range(1,var.app_host_count , 2), count.index)) ? var.app_target_fd2 : var.app_target_fd1) : element(local.fault_domain,count.index)
   compartment_id      = var.target_compartment_ocid
   display_name        = "${var.service_label}app${count.index}"
   shape               = var.app_shape_name

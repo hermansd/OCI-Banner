@@ -106,7 +106,14 @@ variable "private_key_password" {
   default = ""
 }
 variable "region" {}
-variable "fault_domain" {
-  type    = list(string)
-  default = ["FAULT-DOMAIN-1", "FAULT-DOMAIN-2", "FAULT-DOMAIN-3"]
+variable 
+
+locals {
+fault_domain = ["FAULT-DOMAIN-1", "FAULT-DOMAIN-2", "FAULT-DOMAIN-3"]
+
 }
+
+#"fault_domain" {
+#  type    = list(string)
+#  default = ["FAULT-DOMAIN-1", "FAULT-DOMAIN-2", "FAULT-DOMAIN-3"]
+#}
