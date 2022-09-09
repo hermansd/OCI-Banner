@@ -128,7 +128,7 @@ variables:
     required: true
     visible: 
       eq:
-        - app_hmultiple_ads
+        - app_multiple_ads
   
   app_multiple_fds:
     type: boolean
